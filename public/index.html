@@ -33,9 +33,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <!-- /prerender:head -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" />
+  <link rel="preload" href="/fonts/instrument-sans-v4-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="modulepreload" href="/data.js" />
   <link rel="modulepreload" href="/view.js" />
@@ -167,7 +165,7 @@
           "name": "Does Nebrepora need an account or collect personal data?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. The page loads its typefaces from Google Fonts."
+            "text": "No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. Everything, including fonts, is served from this site — no third-party requests."
           }
         },
         {
@@ -843,7 +841,7 @@
           <article><h3>Which departments and categories does Nebrepora cover?</h3><p>Engineering (compilers, systems, databases, AI infrastructure, full-stack and dev tools), Game UI/UX (HUD, menus, immediate-mode and engine UI), Art (pixel, 3D, VFX, DCC and animation tools), and Other engineering (audio, live-ops, build, QA, and source control).</p></article>
           <article><h3>What does Run scan do?</h3><p>Run scan adds up to three new signals that match your scan focus and the current department and category filters. In this public edition, scans draw from a curated scan pool rather than a live API, so results are consistent and need no account or key.</p></article>
           <article><h3>Can I shortlist, compare, and export signals?</h3><p>Yes. Pin up to four signals to get a side-by-side compare table. Export downloads the filtered board as a Markdown briefing and a JSON file, Copy TL;DR copies a one-paragraph summary, and Deep inspect shows analysis, approximate stars, and competitors.</p></article>
-          <article><h3>Does Nebrepora need an account or collect personal data?</h3><p>No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. The page loads its typefaces from Google Fonts.</p></article>
+          <article><h3>Does Nebrepora need an account or collect personal data?</h3><p>No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. Everything, including fonts, is served from this site — no third-party requests.</p></article>
           <article><h3>How current is the watchlist?</h3><p>The curated watchlist was last reviewed on 2026-09-11. Scores are analyst judgments of momentum at review time, and star counts in Deep inspect are approximate.</p></article>
         </div>
       </section>

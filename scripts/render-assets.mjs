@@ -27,6 +27,7 @@ const tmp = mkdtempSync(join(tmpdir(), "nebrepora-assets-"));
 function shot(source, width, height, out, page = width){
   execFileSync(browser, [
     "--headless=new", "--disable-gpu", "--hide-scrollbars", "--no-first-run",
+    "--allow-file-access-from-files", // lets the local HTML sources load public/fonts
     `--user-data-dir=${join(tmp, "profile")}`, `--force-device-scale-factor=${width / page}`,
     `--window-size=${page},${Math.round(height * page / width)}`, "--virtual-time-budget=6000",
     `--screenshot=${out}`, pathToFileURL(join(HERE, "assets", source)).href

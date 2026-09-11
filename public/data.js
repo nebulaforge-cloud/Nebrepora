@@ -30,7 +30,7 @@ export const FAQ = [
   { q: "Can I shortlist, compare, and export signals?",
     a: "Yes. Pin up to four signals to get a side-by-side compare table. Export downloads the filtered board as a Markdown briefing and a JSON file, Copy TL;DR copies a one-paragraph summary, and Deep inspect shows analysis, approximate stars, and competitors." },
   { q: "Does Nebrepora need an account or collect personal data?",
-    a: "No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. The page loads its typefaces from Google Fonts." },
+    a: "No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. Everything, including fonts, is served from this site — no third-party requests." },
   { q: "How current is the watchlist?",
     a: `The curated watchlist was last reviewed on ${SITE.updated}. Scores are analyst judgments of momentum at review time, and star counts in Deep inspect are approximate.` }
 ];

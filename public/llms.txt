@@ -83,7 +83,7 @@ Yes. Pin up to four signals to get a side-by-side compare table. Export download
 
 ### Does Nebrepora need an account or collect personal data?
 
-No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. The page loads its typefaces from Google Fonts.
+No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. Everything, including fonts, is served from this site — no third-party requests.
 
 ### How current is the watchlist?
 
