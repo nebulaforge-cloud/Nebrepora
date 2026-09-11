@@ -1,0 +1,41 @@
+name: refresh-metrics
+
+# Daily: pull GitHub metrics, rebuild the prerendered page, and commit.
+# The push triggers a Render deploy (render.yaml, autoDeployTrigger: commit).
+on:
+  schedule:
+    - cron: "17 3 * * *" # 03:17 UTC every day
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-metrics
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+      - name: Fetch GitHub metrics
+        run: node scripts/refresh-metrics.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Rebuild prerendered page and SEO files
+        run: npm run build
+      - name: Verify before committing
+        run: npm run check
+      - name: Commit and push if changed
+        run: |
+          if git diff --quiet; then echo "No changes."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public data
+          git commit -m "chore(data): refresh GitHub metrics $(date -u +%F)"
+          git push

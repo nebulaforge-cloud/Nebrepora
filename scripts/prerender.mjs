@@ -12,9 +12,10 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, WATCHLIST, KINDS, FAQ, BANDS, LANES, DEPTS } from "../public/data.js";
+import { METRICS_UPDATED } from "../public/metrics.js";
 import {
   esc, deptName, velLabel, filterItems, catsFor, deptsHTML, chipsHTML,
-  digestHTML, shortlistHTML, boardHTML, countText
+  digestHTML, shortlistHTML, boardHTML, countText, metricsFor
 } from "../public/view.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "public");
@@ -24,6 +25,11 @@ const OG_IMAGE = `${SITE.url}/og-image.png`;
 const OG_ALT = "Nebrepora signal board: velocity-scored open-source signals across Engineering, Game UI/UX, Art, and Other engineering.";
 const jsonLd = (obj) => JSON.stringify(obj, null, 2).replace(/</g, "\\u003c");
 const fmtDate = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+
+// Page content changes when the editorial review or the GitHub metrics change.
+const METRICS_DAY = METRICS_UPDATED.slice(0, 10);
+const MODIFIED = METRICS_DAY > SITE.updated ? METRICS_DAY : SITE.updated;
+const starsText = (id) => { const m = metricsFor(id); return m?.stars != null ? `${m.stars.toLocaleString("en-US")} GitHub stars` : ""; };
 
 const items = WATCHLIST.map((i) => ({ ...i }));
 const state = { dept: "All", category: "All", kind: "All", q: "", sort: "score" };
@@ -90,12 +96,12 @@ const graph = {
       operatingSystem: "Any (web browser)", browserRequirements: "Requires JavaScript for filters, scans, and export.",
       isAccessibleForFree: true, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       featureList: features, image: OG_IMAGE, screenshot: OG_IMAGE,
-      dateModified: SITE.updated, sameAs: [SITE.repo],
+      dateModified: MODIFIED, sameAs: [SITE.repo],
       publisher: { "@id": `${SITE.org.url}/#organization` }
     },
     {
       "@type": ["WebPage", "FAQPage"], "@id": `${HOME}#webpage`, url: HOME, name: SITE.title,
-      description: SITE.description, inLanguage: "en", dateModified: SITE.updated,
+      description: SITE.description, inLanguage: "en", dateModified: MODIFIED,
       isPartOf: { "@id": `${HOME}#website` }, about: { "@id": `${HOME}#app` },
       primaryImageOfPage: OG_IMAGE, hasPart: { "@id": `${HOME}#watchlist` },
       mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } }))
@@ -106,7 +112,7 @@ const graph = {
       numberOfItems: list.length, itemListOrder: "https://schema.org/ItemListOrderDescending",
       itemListElement: list.map((it, i) => ({
         "@type": "ListItem", position: i + 1, name: it.name, url: it.url,
-        description: `${deptName(it.dept)} · ${it.category} · velocity ${it.score} (${velLabel(it.score)}). ${it.hook}`
+        description: `${deptName(it.dept)} · ${it.category} · velocity ${it.score} (${velLabel(it.score)})${starsText(it.id) ? ` · ${starsText(it.id)}` : ""}. ${it.hook}`
       }))
     }
   ]
@@ -131,7 +137,7 @@ const about = `
 const footer = `
     <footer>
       <p>Departments: Engineering · Game UI/UX · Art · Other engineering. Pin up to 4. Shortcuts: / search · s scan · i inspect · e export · ? guide</p>
-      <p>Watchlist reviewed <time datetime="${SITE.updated}">${fmtDate(SITE.updated)}</time> · Built by <a href="${SITE.org.url}">${esc(SITE.org.name)}</a> · <a href="${SITE.repo}" rel="noopener">Source on GitHub</a> · <a href="#about">About</a> · <a href="/llms.txt">llms.txt</a></p>
+      <p>Watchlist reviewed <time datetime="${SITE.updated}">${fmtDate(SITE.updated)}</time> · GitHub metrics refreshed <time datetime="${METRICS_UPDATED}">${fmtDate(METRICS_DAY)}</time> · Built by <a href="${SITE.org.url}">${esc(SITE.org.name)}</a> · <a href="${SITE.repo}" rel="noopener">Source on GitHub</a> · <a href="#about">About</a> · <a href="/llms.txt">llms.txt</a></p>
     </footer>
     `;
 
@@ -178,7 +184,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${HOME}</loc>
-    <lastmod>${SITE.updated}</lastmod>
+    <lastmod>${MODIFIED}</lastmod>
   </url>
 </urlset>
 `;
@@ -191,6 +197,7 @@ const llms = `# ${SITE.name}
 - Source code: ${SITE.repo}
 - Publisher: ${SITE.org.name} (${SITE.org.url})
 - Watchlist last reviewed: ${SITE.updated}
+- GitHub metrics refreshed: ${METRICS_DAY} (daily)
 
 ## How scoring works
 
@@ -203,7 +210,7 @@ ${BANDS.map((b) => `- ${b.range} — ${b.label}: ${b.text}`).join("\n")}
 ${LANES.map((d) => {
   const slice = list.filter((i) => i.dept === d);
   return `### ${deptName(d)}\n\n${DEPTS.find((x) => x.id === d).blurb}\n\n${slice.map((i) =>
-    `- [${i.name}](${i.url}): velocity ${i.score} (${velLabel(i.score)}), ${i.category}, ${i.kind}. ${i.hook} ${i.tech} Builders: ${i.sentiment}`
+    `- [${i.name}](${i.url}): velocity ${i.score} (${velLabel(i.score)}), ${i.category}, ${i.kind}${starsText(i.id) ? `, ${starsText(i.id)}` : ""}. ${i.hook} ${i.tech} Builders: ${i.sentiment}`
   ).join("\n")}`;
 }).join("\n\n")}
 

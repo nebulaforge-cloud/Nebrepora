@@ -1,7 +1,9 @@
 import { WATCHLIST, SCAN_POOL, INSPECT, KINDS, SORT_LABEL } from "./data.js";
+import { METRICS_UPDATED } from "./metrics.js";
 import {
-  MAX_PINS, esc, safeUrl, velClass, velLabel, deptName, filterItems, catsFor,
-  deptsHTML, chipsHTML, digestHTML, shortlistHTML, boardHTML, countText
+  MAX_PINS, HAS_GROWTH, esc, safeUrl, velClass, velLabel, deptName, filterItems, catsFor,
+  deptsHTML, chipsHTML, digestHTML, shortlistHTML, boardHTML, countText,
+  metricsFor, repoUrl, fmtNum, fmtSigned, fmtDay
 } from "./view.js";
 
 const PIN_KEY = "nebrepora-pins";
@@ -108,7 +110,23 @@ function openInspect(idOrUrl){
     analysis: `No cached deep-dive yet. ${name} looks like a ${it?.kind || "project"} in ${it?.category || "an uncategorized space"}. Check the official page, recent commits, and issue velocity before shortlisting.`,
     competitors: []
   };
+  const m = it ? metricsFor(it.id) : null;
+  const stars = m?.stars != null ? `${m.stars.toLocaleString("en-US")} (live)` : report.stars;
   inspections = [{ name, url }, ...inspections.filter((i) => normUrl(i.url) !== normUrl(url))].slice(0, 8);
+  const cell = (label, value) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`;
+  const metricsBlock = m ? `
+    <dl class="metrics-grid">
+      ${cell("Stars", fmtNum(m.stars))}
+      ${cell("7-day growth", m.stars7d != null ? fmtSigned(m.stars7d) : "collecting")}
+      ${cell("30-day growth", m.stars30d != null ? fmtSigned(m.stars30d) : "collecting")}
+      ${cell("Commits / 30d", fmtNum(m.commits30d))}
+      ${cell("Forks", fmtNum(m.forks))}
+      ${cell("Open issues", fmtNum(m.openIssues))}
+      ${cell("Last push", fmtDay(m.pushedAt))}
+      ${cell("Latest release", m.release ? `${m.release.tag}${m.release.date ? ` · ${fmtDay(m.release.date)}` : ""}` : "none")}
+      ${cell("License", m.license && m.license !== "NOASSERTION" ? m.license : "see repo")}
+    </dl>
+    <p class="muted k">GitHub: <a href="${esc(safeUrl(repoUrl(m)))}" target="_blank" rel="noopener noreferrer">${esc(m.repo)}</a> · refreshed ${esc(fmtDay(METRICS_UPDATED))}${m.stale ? " · last refresh failed, showing previous data" : ""}${m.archived ? " · archived" : ""}</p>` : "";
 
   $("inspectBody").innerHTML = `
     <p class="eyebrow">Deep inspect</p>
@@ -116,7 +134,8 @@ function openInspect(idOrUrl){
     ${it ? `<div class="badges spaced"><span class="badge ${velClass(it.score)}">${it.score} ${velLabel(it.score)}</span><span class="badge">${esc(deptName(it.dept))}</span><span class="badge">${esc(it.kind)}</span></div>` : ""}
     <label class="sr-only" for="inspectUrl">Project URL</label>
     <input id="inspectUrl" value="${esc(url)}" maxlength="500" autocomplete="off" spellcheck="false" />
-    <p class="report-meta"><b>${esc(report.category)}</b> <span class="muted">· stars ${esc(report.stars)}</span></p>
+    <p class="report-meta"><b>${esc(report.category)}</b> <span class="muted">· stars ${esc(stars)}</span></p>
+    ${metricsBlock}
     <p>${esc(report.analysis)}</p>
     <p class="muted">Competitors: ${esc((report.competitors || []).join(", ") || "n/a")}</p>
     ${it ? `<p><a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer">Open ${esc(it.name)} ↗</a></p>` : ""}
@@ -137,8 +156,15 @@ function openInspect(idOrUrl){
       `# ${name}`, "",
       `- URL: ${url}`,
       `- Category: ${report.category}`,
-      `- Stars: ${report.stars}`,
+      `- Stars: ${stars}`,
       ...(it ? [`- Velocity: ${it.score} (${velLabel(it.score)})`, `- Department: ${deptName(it.dept)}`] : []),
+      ...(m ? [
+        `- GitHub: ${repoUrl(m)} (refreshed ${fmtDay(METRICS_UPDATED)})`,
+        `- Star growth: ${m.stars7d != null ? fmtSigned(m.stars7d) : "n/a"} / 7d, ${m.stars30d != null ? fmtSigned(m.stars30d) : "n/a"} / 30d`,
+        `- Commits in last 30 days: ${m.commits30d ?? "n/a"}`,
+        `- Latest release: ${m.release ? `${m.release.tag} (${fmtDay(m.release.date)})` : "none"}`,
+        `- Last push: ${fmtDay(m.pushedAt)}`
+      ] : []),
       "", "## Analysis", "", report.analysis, "",
       "## Competitors", "", ...((report.competitors || []).length ? report.competitors.map((c) => `- ${c}`) : ["- n/a"]), ""
     ].join("\n");
@@ -165,9 +191,10 @@ function exportBoard(){
     q ? `“${q}”` : ""
   ].filter(Boolean).join(" · ");
   const md = ["# Nebrepora briefing", "", `_${scope} — ${list.length} signals — ${new Date().toISOString().slice(0, 10)}_`, "",
-    ...list.map((i) => `- **${i.name}** (${i.score}) — ${i.hook}`), ""].join("\n");
+    ...list.map((i) => { const m = metricsFor(i.id); return `- **${i.name}** (${i.score}${m ? ` · ★ ${fmtNum(m.stars)}` : ""}) — ${i.hook}`; }), ""].join("\n");
   download("nebrepora-briefing.md", md, "text/markdown");
-  setTimeout(() => download("nebrepora-briefing.json", JSON.stringify(list, null, 2), "application/json"), 300);
+  const json = list.map((i) => ({ ...i, github: metricsFor(i.id) }));
+  setTimeout(() => download("nebrepora-briefing.json", JSON.stringify({ exported: new Date().toISOString(), metricsUpdated: METRICS_UPDATED, signals: json }, null, 2), "application/json"), 300);
   toast("Exported markdown + JSON");
 }
 
@@ -250,6 +277,9 @@ document.addEventListener("keydown", (e) => {
   else if (e.key === "e") exportBoard();
   else if (e.key === "?") $("guideDlg").showModal();
 });
+
+const rising = $("sort").querySelector('option[value="rising"]');
+if (rising && !HAS_GROWTH) { rising.disabled = true; rising.textContent += " — after 7 days of data"; }
 
 document.documentElement.classList.add("js");
 render();

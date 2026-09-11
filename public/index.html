@@ -37,6 +37,7 @@
   <link rel="stylesheet" href="/styles.css" />
   <link rel="modulepreload" href="/data.js" />
   <link rel="modulepreload" href="/view.js" />
+  <link rel="modulepreload" href="/metrics.js" />
   <script type="module" src="/app.js"></script>
   <!-- prerender:jsonld -->
   <script type="application/ld+json">
@@ -157,7 +158,7 @@
           "name": "Can I shortlist, compare, and export signals?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Pin up to four signals to get a side-by-side compare table. Export downloads the filtered board as a Markdown briefing and a JSON file, Copy TL;DR copies a one-paragraph summary, and Deep inspect shows analysis, approximate stars, and competitors."
+            "text": "Yes. Pin up to four signals to get a side-by-side compare table. Export downloads the filtered board as a Markdown briefing and a JSON file, Copy TL;DR copies a one-paragraph summary, and Deep inspect shows analysis, live GitHub metrics, and competitors."
           }
         },
         {
@@ -170,10 +171,10 @@
         },
         {
           "@type": "Question",
-          "name": "How current is the watchlist?",
+          "name": "How current is the data?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The curated watchlist was last reviewed on 2026-09-11. Scores are analyst judgments of momentum at review time, and star counts in Deep inspect are approximate."
+            "text": "GitHub metrics — stars, 7- and 30-day star growth, commits in the last 30 days, last push, and latest release — refresh automatically every day from the GitHub API. Velocity scores, hooks, and analysis are analyst judgments reviewed by hand; the watchlist was last reviewed on 2026-09-11."
           }
         }
       ]
@@ -191,77 +192,77 @@
           "position": 1,
           "name": "Blender",
           "url": "https://www.blender.org/",
-          "description": "Art · Art · velocity 92 (High signal). Look-dev, DCC, and export hub for 3D game art."
+          "description": "Art · Art · velocity 92 (High signal) · 20,248 GitHub stars. Look-dev, DCC, and export hub for 3D game art."
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "uv",
           "url": "https://github.com/astral-sh/uv",
-          "description": "Engineering · DevTools · velocity 91 (High signal). Rust-speed Python package manager replacing pip+venv friction."
+          "description": "Engineering · DevTools · velocity 91 (High signal) · 89,719 GitHub stars. Rust-speed Python package manager replacing pip+venv friction."
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Godot",
           "url": "https://github.com/godotengine/godot",
-          "description": "Game UI / UX · Game UI/UX · velocity 90 (High signal). Open engine with first-class Control nodes for game UI."
+          "description": "Game UI / UX · Game UI/UX · velocity 90 (High signal) · 116,970 GitHub stars. Open engine with first-class Control nodes for game UI."
         },
         {
           "@type": "ListItem",
           "position": 4,
           "name": "Aseprite",
           "url": "https://github.com/aseprite/aseprite",
-          "description": "Art · Art · velocity 88 (High signal). Pixel pipeline that art and animation still standardize on."
+          "description": "Art · Art · velocity 88 (High signal) · 39,381 GitHub stars. Pixel pipeline that art and animation still standardize on."
         },
         {
           "@type": "ListItem",
           "position": 5,
           "name": "Oxc",
           "url": "https://github.com/oxc-project/oxc",
-          "description": "Engineering · Compilers · velocity 88 (High signal). One Rust parser/linter/compiler stack for the JS toolchain."
+          "description": "Engineering · Compilers · velocity 88 (High signal) · 22,713 GitHub stars. One Rust parser/linter/compiler stack for the JS toolchain."
         },
         {
           "@type": "ListItem",
           "position": 6,
           "name": "Dear ImGui",
           "url": "https://github.com/ocornut/imgui",
-          "description": "Game UI / UX · Game UI/UX · velocity 87 (High signal). Immediate-mode UI that game tools and debug HUDs still ship on."
+          "description": "Game UI / UX · Game UI/UX · velocity 87 (High signal) · 76,159 GitHub stars. Immediate-mode UI that game tools and debug HUDs still ship on."
         },
         {
           "@type": "ListItem",
           "position": 7,
           "name": "Zed",
           "url": "https://github.com/zed-industries/zed",
-          "description": "Engineering · DevTools · velocity 86 (High signal). GPU-accelerated editor built for pair programming."
+          "description": "Engineering · DevTools · velocity 86 (High signal) · 90,119 GitHub stars. GPU-accelerated editor built for pair programming."
         },
         {
           "@type": "ListItem",
           "position": 8,
           "name": "Bevy",
           "url": "https://github.com/bevyengine/bevy",
-          "description": "Game UI / UX · Game UI/UX · velocity 85 (High signal). Rust ECS engine with a growing UI and rendering stack."
+          "description": "Game UI / UX · Game UI/UX · velocity 85 (High signal) · 48,137 GitHub stars. Rust ECS engine with a growing UI and rendering stack."
         },
         {
           "@type": "ListItem",
           "position": 9,
           "name": "Jujutsu (jj)",
           "url": "https://github.com/jj-vcs/jj",
-          "description": "Engineering · Systems · velocity 84 (High signal). Git-compatible VCS with first-class conflicts and revsets."
+          "description": "Engineering · Systems · velocity 84 (High signal) · 31,530 GitHub stars. Git-compatible VCS with first-class conflicts and revsets."
         },
         {
           "@type": "ListItem",
           "position": 10,
           "name": "Rive",
           "url": "https://rive.app/",
-          "description": "Game UI / UX · Game UI/UX · velocity 84 (High signal). Runtime motion for HUDs and diegetic menus."
+          "description": "Game UI / UX · Game UI/UX · velocity 84 (High signal) · 1,176 GitHub stars. Runtime motion for HUDs and diegetic menus."
         },
         {
           "@type": "ListItem",
           "position": 11,
           "name": "Sentry",
           "url": "https://github.com/getsentry/sentry",
-          "description": "Other engineering · LiveOps · velocity 84 (High signal). Crash and session signal used by live-ops and QA."
+          "description": "Other engineering · LiveOps · velocity 84 (High signal) · 44,762 GitHub stars. Crash and session signal used by live-ops and QA."
         },
         {
           "@type": "ListItem",
@@ -275,7 +276,7 @@
           "position": 13,
           "name": "libSQL",
           "url": "https://github.com/tursodatabase/libsql",
-          "description": "Engineering · Database · velocity 82 (High signal). SQLite fork with native replicas and HTTP."
+          "description": "Engineering · Database · velocity 82 (High signal) · 17,213 GitHub stars. SQLite fork with native replicas and HTTP."
         },
         {
           "@type": "ListItem",
@@ -289,35 +290,35 @@
           "position": 15,
           "name": "React Three Fiber",
           "url": "https://github.com/pmndrs/react-three-fiber",
-          "description": "Game UI / UX · Game UI/UX · velocity 81 (High signal). Declarative 3D scenes for web game shells and 3D menus."
+          "description": "Game UI / UX · Game UI/UX · velocity 81 (High signal) · 32,248 GitHub stars. Declarative 3D scenes for web game shells and 3D menus."
         },
         {
           "@type": "ListItem",
           "position": 16,
           "name": "Spine",
           "url": "https://esotericsoftware.com/",
-          "description": "Art · Art · velocity 80 (High signal). 2D skeletal animation that UI and character art share."
+          "description": "Art · Art · velocity 80 (High signal) · 5,290 GitHub stars. 2D skeletal animation that UI and character art share."
         },
         {
           "@type": "ListItem",
           "position": 17,
           "name": "Candle",
           "url": "https://github.com/huggingface/candle",
-          "description": "Engineering · AI/Infra · velocity 79 (Building). Minimal Rust ML framework for running models without Python."
+          "description": "Engineering · AI/Infra · velocity 79 (Building) · 21,021 GitHub stars. Minimal Rust ML framework for running models without Python."
         },
         {
           "@type": "ListItem",
           "position": 18,
           "name": "Blockbench",
           "url": "https://github.com/JannisX11/blockbench",
-          "description": "Art · Art · velocity 78 (Building). Low-poly / voxel modeler that ships game-ready meshes fast."
+          "description": "Art · Art · velocity 78 (Building) · 5,899 GitHub stars. Low-poly / voxel modeler that ships game-ready meshes fast."
         },
         {
           "@type": "ListItem",
           "position": 19,
           "name": "FASTBuild",
           "url": "https://github.com/fastbuild/fastbuild",
-          "description": "Other engineering · Tools/QA · velocity 76 (Building). Distributed C++ builds for game engine compile farms."
+          "description": "Other engineering · Tools/QA · velocity 76 (Building) · 1,392 GitHub stars. Distributed C++ builds for game engine compile farms."
         },
         {
           "@type": "ListItem",
@@ -338,7 +339,7 @@
           "position": 22,
           "name": "Playtest tooling notes / Oboe",
           "url": "https://github.com/google/oboe",
-          "description": "Other engineering · Audio · velocity 72 (Building). Low-latency audio path work that platform engineers watch."
+          "description": "Other engineering · Audio · velocity 72 (Building) · 4,108 GitHub stars. Low-latency audio path work that platform engineers watch."
         }
       ]
     }
@@ -382,6 +383,7 @@
         <label class="sr-only" for="sort">Sort signals</label>
         <select id="sort">
           <option value="score">Score</option>
+          <option value="rising">Rising (★ 7d)</option>
           <option value="az">A–Z</option>
           <option value="cat">Category</option>
         </select>
@@ -402,12 +404,14 @@
       <span class="badge">DevTools</span>
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>uv</h3>
     <p class="hook">Rust-speed Python package manager replacing pip+venv friction.</p>
     <p class="tech">Single binary resolver/installer that makes Python env setup feel like a compiled toolchain.</p>
     <p class="sentiment">Builders treating uv as default infra, not a toy.</p>
     <p class="cites k">astral.sh · github.com/astral-sh/uv</p>
+    <p class="stats k"><a href="https://github.com/astral-sh/uv" target="_blank" rel="noopener noreferrer" aria-label="astral-sh/uv on GitHub, 89719 stars">★ 89.7K</a> · 331 commits / 30d · 0.12.13</p>
     <div class="actions">
       <a class="btn" href="https://github.com/astral-sh/uv" target="_blank" rel="noopener noreferrer" aria-label="Open uv (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="uv">Copy TL;DR</button>
@@ -421,12 +425,14 @@
       <span class="badge">Compilers</span>
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Oxc</h3>
     <p class="hook">One Rust parser/linter/compiler stack for the JS toolchain.</p>
     <p class="tech">Shared AST + native speed collapsing ESLint/Prettier/TS-check work.</p>
     <p class="sentiment">Compiler folks calling it the next JS infrastructure layer.</p>
     <p class="cites k">oxc.rs · github.com/oxc-project/oxc</p>
+    <p class="stats k"><a href="https://github.com/oxc-project/oxc" target="_blank" rel="noopener noreferrer" aria-label="oxc-project/oxc on GitHub, 22713 stars">★ 22.7K</a> · 627 commits / 30d · apps_v1.82.0</p>
     <div class="actions">
       <a class="btn" href="https://github.com/oxc-project/oxc" target="_blank" rel="noopener noreferrer" aria-label="Open Oxc (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="oxc">Copy TL;DR</button>
@@ -440,12 +446,14 @@
       <span class="badge">DevTools</span>
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Zed</h3>
     <p class="hook">GPU-accelerated editor built for pair programming.</p>
     <p class="tech">CRDT collaboration + Rust UI that stays instant on large trees.</p>
     <p class="sentiment">Devtools chatter shifting from novelty to daily editor.</p>
     <p class="cites k">zed.dev · github.com/zed-industries/zed</p>
+    <p class="stats k"><a href="https://github.com/zed-industries/zed" target="_blank" rel="noopener noreferrer" aria-label="zed-industries/zed on GitHub, 90119 stars">★ 90.1K</a> · 445 commits / 30d · v1.19.2</p>
     <div class="actions">
       <a class="btn" href="https://github.com/zed-industries/zed" target="_blank" rel="noopener noreferrer" aria-label="Open Zed (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="zed">Copy TL;DR</button>
@@ -459,12 +467,14 @@
       <span class="badge">Systems</span>
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Jujutsu (jj)</h3>
     <p class="hook">Git-compatible VCS with first-class conflicts and revsets.</p>
     <p class="tech">Operation log + working-copy commits change how people rebase and undo.</p>
     <p class="sentiment">Systems engineers quietly switching daily drivers.</p>
     <p class="cites k">jj-vcs.github.io · github.com/jj-vcs/jj</p>
+    <p class="stats k"><a href="https://github.com/jj-vcs/jj" target="_blank" rel="noopener noreferrer" aria-label="jj-vcs/jj on GitHub, 31530 stars">★ 31.5K</a> · 120 commits / 30d · v0.45.1</p>
     <div class="actions">
       <a class="btn" href="https://github.com/jj-vcs/jj" target="_blank" rel="noopener noreferrer" aria-label="Open Jujutsu (jj) (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="jj">Copy TL;DR</button>
@@ -478,12 +488,14 @@
       <span class="badge">Database</span>
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>libSQL</h3>
     <p class="hook">SQLite fork with native replicas and HTTP.</p>
     <p class="tech">Embedded SQL that can replicate without bolting on a separate server.</p>
     <p class="sentiment">Edge/app builders using it as the default local-first store.</p>
     <p class="cites k">turso.tech · github.com/tursodatabase/libsql</p>
+    <p class="stats k"><a href="https://github.com/tursodatabase/libsql" target="_blank" rel="noopener noreferrer" aria-label="tursodatabase/libsql on GitHub, 17213 stars">★ 17.2K</a> · 2 commits / 30d · libsql-server-v0.24.32</p>
     <div class="actions">
       <a class="btn" href="https://github.com/tursodatabase/libsql" target="_blank" rel="noopener noreferrer" aria-label="Open libSQL (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="libsql">Copy TL;DR</button>
@@ -497,12 +509,14 @@
       <span class="badge">AI/Infra</span>
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Candle</h3>
     <p class="hook">Minimal Rust ML framework for running models without Python.</p>
     <p class="tech">Serverless-friendly tensors and Hugging Face weights in a tiny runtime.</p>
     <p class="sentiment">Infra teams prototyping on-device and edge inference.</p>
     <p class="cites k">huggingface.co · github.com/huggingface/candle</p>
+    <p class="stats k"><a href="https://github.com/huggingface/candle" target="_blank" rel="noopener noreferrer" aria-label="huggingface/candle on GitHub, 21021 stars">★ 21K</a> · 41 commits / 30d</p>
     <div class="actions">
       <a class="btn" href="https://github.com/huggingface/candle" target="_blank" rel="noopener noreferrer" aria-label="Open Candle (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="candle">Copy TL;DR</button>
@@ -519,12 +533,14 @@
       
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Godot</h3>
     <p class="hook">Open engine with first-class Control nodes for game UI.</p>
     <p class="tech">Theme system + Control tree that ships menus without a separate UI stack.</p>
     <p class="sentiment">Indie UI teams moving prototypes off Unity uGUI.</p>
     <p class="cites k">godotengine.org · github.com/godotengine/godot</p>
+    <p class="stats k"><a href="https://github.com/godotengine/godot" target="_blank" rel="noopener noreferrer" aria-label="godotengine/godot on GitHub, 116970 stars">★ 117K</a> · 676 commits / 30d · 4.7.2-stable</p>
     <div class="actions">
       <a class="btn" href="https://github.com/godotengine/godot" target="_blank" rel="noopener noreferrer" aria-label="Open Godot (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="godot">Copy TL;DR</button>
@@ -538,12 +554,14 @@
       
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Dear ImGui</h3>
     <p class="hook">Immediate-mode UI that game tools and debug HUDs still ship on.</p>
     <p class="tech">Tiny C++ UI core used for editors, debug overlays, and live tuners.</p>
     <p class="sentiment">Tools engineers treat it as the default in-game panel kit.</p>
     <p class="cites k">github.com/ocornut/imgui</p>
+    <p class="stats k"><a href="https://github.com/ocornut/imgui" target="_blank" rel="noopener noreferrer" aria-label="ocornut/imgui on GitHub, 76159 stars">★ 76.2K</a> · 39 commits / 30d · v1.92.9b</p>
     <div class="actions">
       <a class="btn" href="https://github.com/ocornut/imgui" target="_blank" rel="noopener noreferrer" aria-label="Open Dear ImGui (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="dearimgui">Copy TL;DR</button>
@@ -557,12 +575,14 @@
       
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Bevy</h3>
     <p class="hook">Rust ECS engine with a growing UI and rendering stack.</p>
     <p class="tech">Data-driven UI + render graph that tools and gameplay share.</p>
     <p class="sentiment">Systems + UX engineers prototyping HUD in ECS.</p>
     <p class="cites k">bevyengine.org · github.com/bevyengine/bevy</p>
+    <p class="stats k"><a href="https://github.com/bevyengine/bevy" target="_blank" rel="noopener noreferrer" aria-label="bevyengine/bevy on GitHub, 48137 stars">★ 48.1K</a> · 202 commits / 30d · v0.19.1</p>
     <div class="actions">
       <a class="btn" href="https://github.com/bevyengine/bevy" target="_blank" rel="noopener noreferrer" aria-label="Open Bevy (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="bevy">Copy TL;DR</button>
@@ -576,12 +596,14 @@
       
       <span class="badge">Tool</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Rive</h3>
     <p class="hook">Runtime motion for HUDs and diegetic menus.</p>
     <p class="tech">State-machine animations authored once and played by a small runtime in-engine and on web.</p>
     <p class="sentiment">UI animators replacing sprite-sheet HUD motion with state machines.</p>
     <p class="cites k">rive.app · github.com/rive-app/rive-runtime</p>
+    <p class="stats k"><a href="https://github.com/rive-app/rive-runtime" target="_blank" rel="noopener noreferrer" aria-label="rive-app/rive-runtime on GitHub, 1176 stars">★ 1.2K</a> · 129 commits / 30d</p>
     <div class="actions">
       <a class="btn" href="https://rive.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Rive (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="rive">Copy TL;DR</button>
@@ -595,12 +617,14 @@
       
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>React Three Fiber</h3>
     <p class="hook">Declarative 3D scenes for web game shells and 3D menus.</p>
     <p class="tech">React reconciler over Three.js — HUD and world in one component tree.</p>
     <p class="sentiment">Web game UX teams building diegetic menus in-browser.</p>
     <p class="cites k">docs.pmnd.rs · github.com/pmndrs/react-three-fiber</p>
+    <p class="stats k"><a href="https://github.com/pmndrs/react-three-fiber" target="_blank" rel="noopener noreferrer" aria-label="pmndrs/react-three-fiber on GitHub, 32248 stars">★ 32.2K</a> · 1 commits / 30d · v9.7.0</p>
     <div class="actions">
       <a class="btn" href="https://github.com/pmndrs/react-three-fiber" target="_blank" rel="noopener noreferrer" aria-label="Open React Three Fiber (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="r3f">Copy TL;DR</button>
@@ -614,12 +638,14 @@
       
       <span class="badge">Tool</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Figma game UI kits</h3>
     <p class="hook">Production HUD frames before they hit the engine.</p>
     <p class="tech">Component variants + auto layout as the spec layer for menus, HUD states, and safe areas.</p>
     <p class="sentiment">UX leads using community kits to skip blank-canvas HUD work.</p>
     <p class="cites k">figma.com/community</p>
+    
     <div class="actions">
       <a class="btn" href="https://www.figma.com/community" target="_blank" rel="noopener noreferrer" aria-label="Open Figma game UI kits (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="figmakits">Copy TL;DR</button>
@@ -636,12 +662,14 @@
       
       <span class="badge">Tool</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Blender</h3>
     <p class="hook">Look-dev, DCC, and export hub for 3D game art.</p>
     <p class="tech">Geometry nodes + USD/glTF export covering greybox to final mesh.</p>
     <p class="sentiment">Art leads using it as the default DCC, not a free fallback.</p>
     <p class="cites k">blender.org</p>
+    <p class="stats k"><a href="https://github.com/blender/blender" target="_blank" rel="noopener noreferrer" aria-label="blender/blender on GitHub, 20248 stars">★ 20.2K</a> · 782 commits / 30d</p>
     <div class="actions">
       <a class="btn" href="https://www.blender.org/" target="_blank" rel="noopener noreferrer" aria-label="Open Blender (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="blender">Copy TL;DR</button>
@@ -655,12 +683,14 @@
       
       <span class="badge">Tool</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Aseprite</h3>
     <p class="hook">Pixel pipeline that art and animation still standardize on.</p>
     <p class="tech">Layered pixel editor with animation, tiles, and CLI batch export.</p>
     <p class="sentiment">Art departments treating it as the 2D source of truth.</p>
     <p class="cites k">aseprite.org · github.com/aseprite/aseprite</p>
+    <p class="stats k"><a href="https://github.com/aseprite/aseprite" target="_blank" rel="noopener noreferrer" aria-label="aseprite/aseprite on GitHub, 39381 stars">★ 39.4K</a> · 29 commits / 30d · v1.3.18.5</p>
     <div class="actions">
       <a class="btn" href="https://github.com/aseprite/aseprite" target="_blank" rel="noopener noreferrer" aria-label="Open Aseprite (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="aseprite">Copy TL;DR</button>
@@ -674,12 +704,14 @@
       
       <span class="badge">Tool</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Spine</h3>
     <p class="hook">2D skeletal animation that UI and character art share.</p>
     <p class="tech">Runtime-backed rigs for HUDs, characters, and VFX-lite motion.</p>
     <p class="sentiment">Art + UI sharing one animation runtime.</p>
     <p class="cites k">esotericsoftware.com</p>
+    <p class="stats k"><a href="https://github.com/EsotericSoftware/spine-runtimes" target="_blank" rel="noopener noreferrer" aria-label="EsotericSoftware/spine-runtimes on GitHub, 5290 stars">★ 5.3K</a> · 18 commits / 30d</p>
     <div class="actions">
       <a class="btn" href="https://esotericsoftware.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Spine (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="spine">Copy TL;DR</button>
@@ -693,12 +725,14 @@
       
       <span class="badge">Tool</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Blockbench</h3>
     <p class="hook">Low-poly / voxel modeler that ships game-ready meshes fast.</p>
     <p class="tech">Box modeling + animation aimed at stylized game assets.</p>
     <p class="sentiment">Art teams using it for props and character blockouts.</p>
     <p class="cites k">blockbench.net · github.com/JannisX11/blockbench</p>
+    <p class="stats k"><a href="https://github.com/JannisX11/blockbench" target="_blank" rel="noopener noreferrer" aria-label="JannisX11/blockbench on GitHub, 5899 stars">★ 5.9K</a> · 0 commits / 30d · v5.1.6</p>
     <div class="actions">
       <a class="btn" href="https://github.com/JannisX11/blockbench" target="_blank" rel="noopener noreferrer" aria-label="Open Blockbench (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="blockbench">Copy TL;DR</button>
@@ -712,12 +746,14 @@
       
       <span class="badge">Tool</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Mixamo</h3>
     <p class="hook">Auto-rigging and a mocap clip library for fast character blockouts.</p>
     <p class="tech">Upload a mesh, get a skeleton plus retargetable animation clips as FBX.</p>
     <p class="sentiment">Art teams using it for prototype locomotion, then replacing with custom mocap.</p>
     <p class="cites k">mixamo.com</p>
+    
     <div class="actions">
       <a class="btn" href="https://www.mixamo.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Mixamo (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="mixamo">Copy TL;DR</button>
@@ -734,12 +770,14 @@
       <span class="badge">LiveOps</span>
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Sentry</h3>
     <p class="hook">Crash and session signal used by live-ops and QA.</p>
     <p class="tech">Event pipeline that maps player sessions back to builds.</p>
     <p class="sentiment">Live-ops treating it as the incident bus.</p>
     <p class="cites k">sentry.io · github.com/getsentry/sentry</p>
+    <p class="stats k"><a href="https://github.com/getsentry/sentry" target="_blank" rel="noopener noreferrer" aria-label="getsentry/sentry on GitHub, 44762 stars">★ 44.8K</a> · 1.7K commits / 30d · 26.8.0</p>
     <div class="actions">
       <a class="btn" href="https://github.com/getsentry/sentry" target="_blank" rel="noopener noreferrer" aria-label="Open Sentry (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="sentry">Copy TL;DR</button>
@@ -753,12 +791,14 @@
       <span class="badge">Audio</span>
       <span class="badge">Tool</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Wwise</h3>
     <p class="hook">Interactive audio middleware for live mix and events.</p>
     <p class="tech">Sound engine + profiling that audio and gameplay hook into.</p>
     <p class="sentiment">Audio engineering still the default on mid-to-large titles.</p>
     <p class="cites k">audiokinetic.com</p>
+    
     <div class="actions">
       <a class="btn" href="https://www.audiokinetic.com/en/wwise/" target="_blank" rel="noopener noreferrer" aria-label="Open Wwise (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="wwise">Copy TL;DR</button>
@@ -772,12 +812,14 @@
       <span class="badge">Tools/QA</span>
       <span class="badge">Tool</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Helix Core</h3>
     <p class="hook">Version control that still holds the binary assets studios ship.</p>
     <p class="tech">File locking + streams that scale to multi-terabyte depots Git LFS struggles with.</p>
     <p class="sentiment">Build and platform teams keeping it for art depots even when code moves to Git.</p>
     <p class="cites k">perforce.com</p>
+    
     <div class="actions">
       <a class="btn" href="https://www.perforce.com/products/helix-core" target="_blank" rel="noopener noreferrer" aria-label="Open Helix Core (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="perforce">Copy TL;DR</button>
@@ -791,12 +833,14 @@
       <span class="badge">Tools/QA</span>
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>FASTBuild</h3>
     <p class="hook">Distributed C++ builds for game engine compile farms.</p>
     <p class="tech">Cache + distributed compile that platform/build teams live on.</p>
     <p class="sentiment">Build engineering still comparing it to IncrediBuild.</p>
     <p class="cites k">fastbuild.org · github.com/fastbuild/fastbuild</p>
+    <p class="stats k"><a href="https://github.com/fastbuild/fastbuild" target="_blank" rel="noopener noreferrer" aria-label="fastbuild/fastbuild on GitHub, 1392 stars">★ 1.4K</a> · 0 commits / 30d · v1.20</p>
     <div class="actions">
       <a class="btn" href="https://github.com/fastbuild/fastbuild" target="_blank" rel="noopener noreferrer" aria-label="Open FASTBuild (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="fastbuild">Copy TL;DR</button>
@@ -810,12 +854,14 @@
       <span class="badge">Audio</span>
       <span class="badge">Repo</span>
       <span class="badge">Watchlist</span>
+      
     </div>
     <h3>Playtest tooling notes / Oboe</h3>
     <p class="hook">Low-latency audio path work that platform engineers watch.</p>
     <p class="tech">Android audio I/O that game audio engines sit on.</p>
     <p class="sentiment">Platform audio engineers tracking latency, not features.</p>
     <p class="cites k">github.com/google/oboe</p>
+    <p class="stats k"><a href="https://github.com/google/oboe" target="_blank" rel="noopener noreferrer" aria-label="google/oboe on GitHub, 4108 stars">★ 4.1K</a> · 2 commits / 30d · 1.10.0</p>
     <div class="actions">
       <a class="btn" href="https://github.com/google/oboe" target="_blank" rel="noopener noreferrer" aria-label="Open Playtest tooling notes / Oboe (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="playtestcloud">Copy TL;DR</button>
@@ -840,9 +886,9 @@
           <article><h3>How is the organic velocity score calculated?</h3><p>The score weighs how sharp the technical leap is and how much genuine builder discussion a project has — not its GitHub star count. 80–100 is High signal, 50–79 is Building, and 1–49 is Watch. Launch-week marketing, star-bombing, and milestone posts with no technical substance are ignored.</p></article>
           <article><h3>Which departments and categories does Nebrepora cover?</h3><p>Engineering (compilers, systems, databases, AI infrastructure, full-stack and dev tools), Game UI/UX (HUD, menus, immediate-mode and engine UI), Art (pixel, 3D, VFX, DCC and animation tools), and Other engineering (audio, live-ops, build, QA, and source control).</p></article>
           <article><h3>What does Run scan do?</h3><p>Run scan adds up to three new signals that match your scan focus and the current department and category filters. In this public edition, scans draw from a curated scan pool rather than a live API, so results are consistent and need no account or key.</p></article>
-          <article><h3>Can I shortlist, compare, and export signals?</h3><p>Yes. Pin up to four signals to get a side-by-side compare table. Export downloads the filtered board as a Markdown briefing and a JSON file, Copy TL;DR copies a one-paragraph summary, and Deep inspect shows analysis, approximate stars, and competitors.</p></article>
+          <article><h3>Can I shortlist, compare, and export signals?</h3><p>Yes. Pin up to four signals to get a side-by-side compare table. Export downloads the filtered board as a Markdown briefing and a JSON file, Copy TL;DR copies a one-paragraph summary, and Deep inspect shows analysis, live GitHub metrics, and competitors.</p></article>
           <article><h3>Does Nebrepora need an account or collect personal data?</h3><p>No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. Everything, including fonts, is served from this site — no third-party requests.</p></article>
-          <article><h3>How current is the watchlist?</h3><p>The curated watchlist was last reviewed on 2026-09-11. Scores are analyst judgments of momentum at review time, and star counts in Deep inspect are approximate.</p></article>
+          <article><h3>How current is the data?</h3><p>GitHub metrics — stars, 7- and 30-day star growth, commits in the last 30 days, last push, and latest release — refresh automatically every day from the GitHub API. Velocity scores, hooks, and analysis are analyst judgments reviewed by hand; the watchlist was last reviewed on 2026-09-11.</p></article>
         </div>
       </section>
       <!-- /prerender:about -->
@@ -851,7 +897,7 @@
     <!-- prerender:footer -->
     <footer>
       <p>Departments: Engineering · Game UI/UX · Art · Other engineering. Pin up to 4. Shortcuts: / search · s scan · i inspect · e export · ? guide</p>
-      <p>Watchlist reviewed <time datetime="2026-09-11">11 Sept 2026</time> · Built by <a href="https://nebulaforge.dev">NebulaForge</a> · <a href="https://github.com/nebulaforge-cloud/Nebrepora" rel="noopener">Source on GitHub</a> · <a href="#about">About</a> · <a href="/llms.txt">llms.txt</a></p>
+      <p>Watchlist reviewed <time datetime="2026-09-11">11 Sept 2026</time> · GitHub metrics refreshed <time datetime="2026-09-11T17:19:44.382Z">11 Sept 2026</time> · Built by <a href="https://nebulaforge.dev">NebulaForge</a> · <a href="https://github.com/nebulaforge-cloud/Nebrepora" rel="noopener">Source on GitHub</a> · <a href="#about">About</a> · <a href="/llms.txt">llms.txt</a></p>
     </footer>
     <!-- /prerender:footer -->
   </div>

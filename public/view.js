@@ -1,8 +1,20 @@
 // Pure string renderers. No DOM access, so the same markup is produced in the
 // browser (app.js) and at build time (scripts/prerender.mjs).
 import { DEPTS, LANES, CATS } from "./data.js";
+import { METRICS } from "./metrics.js";
 
 export const MAX_PINS = 4;
+// "Rising" needs a star count at least 7 days old; until then the sort is disabled.
+export const HAS_GROWTH = Object.values(METRICS).some((m) => m.stars7d != null);
+
+const compact = new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 });
+export const fmtNum = (n) => (n == null ? "—" : compact.format(n));
+export const fmtSigned = (n) => (n > 0 ? "+" : n < 0 ? "−" : "±") + compact.format(Math.abs(n));
+export const fmtDay = (iso) => iso
+  ? new Date(`${iso.slice(0, 10)}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })
+  : "—";
+export const metricsFor = (id) => (Object.hasOwn(METRICS, id) ? METRICS[id] : null);
+export const repoUrl = (m) => `https://github.com/${m.repo}`;
 
 const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 export const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ESC[c]);
@@ -20,6 +32,10 @@ export const velLabel = (s) => s >= 80 ? "High signal" : s >= 50 ? "Building" : 
 export const deptName = (id) => (DEPTS.find((d) => d.id === id) || {}).name || id;
 
 export function sortItems(list, sort){
+  if (sort === "rising") {
+    const g = (it) => metricsFor(it.id)?.stars7d ?? -Infinity;
+    return list.sort((a, b) => (g(b) - g(a)) || b.score - a.score);
+  }
   if (sort === "az") return list.sort((a, b) => a.name.localeCompare(b.name));
   if (sort === "cat") return list.sort((a, b) => a.category.localeCompare(b.category) || b.score - a.score);
   return list.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
@@ -65,9 +81,20 @@ export function shortlistHTML(pinned){
     `<span class="pin-tag">${esc(p.name)} <span class="k">${p.score}</span><button type="button" data-pin="${esc(p.id)}" aria-label="Unpin ${esc(p.name)}">×</button></span>`
   ).join("")}</div>`;
   if (pinned.length < 2) return html + `<p class="muted note">Pin a second project to compare.</p>`;
-  return html + `<div class="table-wrap"><table><thead><tr><th scope="col">Project</th><th scope="col">Score</th><th scope="col">Dept</th><th scope="col">Kind</th><th scope="col">Category</th><th scope="col">Hook</th></tr></thead><tbody>${
-    pinned.map((p) => `<tr><td><b>${esc(p.name)}</b></td><td><span class="badge ${velClass(p.score)}">${p.score}</span></td><td>${esc(deptName(p.dept))}</td><td>${esc(p.kind)}</td><td>${esc(p.category)}</td><td class="muted">${esc(p.hook)}</td></tr>`).join("")
+  return html + `<div class="table-wrap"><table><thead><tr><th scope="col">Project</th><th scope="col">Score</th><th scope="col">Stars</th><th scope="col">Dept</th><th scope="col">Kind</th><th scope="col">Category</th><th scope="col">Hook</th></tr></thead><tbody>${
+    pinned.map((p) => `<tr><td><b>${esc(p.name)}</b></td><td><span class="badge ${velClass(p.score)}">${p.score}</span></td><td class="k">${metricsFor(p.id) ? `★ ${fmtNum(metricsFor(p.id).stars)}` : "—"}</td><td>${esc(deptName(p.dept))}</td><td>${esc(p.kind)}</td><td>${esc(p.category)}</td><td class="muted">${esc(p.hook)}</td></tr>`).join("")
   }</tbody></table></div>`;
+}
+
+// One line of live GitHub metrics for a card; empty for non-GitHub tools.
+export function statsHTML(it){
+  const m = metricsFor(it.id);
+  if (!m) return "";
+  const parts = [`<a href="${esc(safeUrl(repoUrl(m)))}" target="_blank" rel="noopener noreferrer" aria-label="${esc(m.repo)} on GitHub, ${esc(String(m.stars ?? 0))} stars">★ ${fmtNum(m.stars)}</a>`];
+  if (m.stars7d != null) parts.push(`${fmtSigned(m.stars7d)} / 7d`);
+  if (m.commits30d != null) parts.push(`${fmtNum(m.commits30d)} commits / 30d`);
+  if (m.release?.tag) parts.push(esc(m.release.tag.length > 22 ? `${m.release.tag.slice(0, 21)}…` : m.release.tag));
+  return `<p class="stats k">${parts.join(" · ")}</p>`;
 }
 
 export function cardHTML(it, pins = [], fresh = new Set()){
@@ -80,12 +107,14 @@ export function cardHTML(it, pins = [], fresh = new Set()){
       ${it.category !== it.dept ? `<span class="badge">${esc(it.category)}</span>` : ""}
       <span class="badge">${esc(it.kind)}</span>
       <span class="badge${it.source === "watchlist" ? "" : " live"}">${it.source === "watchlist" ? "Watchlist" : "Live scan"}</span>
+      ${metricsFor(it.id)?.archived ? `<span class="badge archived">Archived</span>` : ""}
     </div>
     <h3>${esc(it.name)}</h3>
     <p class="hook">${esc(it.hook)}</p>
     <p class="tech">${esc(it.tech)}</p>
     <p class="sentiment">${esc(it.sentiment)}</p>
     <p class="cites k">${(it.citations || []).map(esc).join(" · ")}</p>
+    ${statsHTML(it)}
     <div class="actions">
       <a class="btn" href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer" aria-label="Open ${esc(it.name)} (new tab)">Open ↗</a>
       <button class="ghost" type="button" data-copy="${esc(it.id)}">Copy TL;DR</button>

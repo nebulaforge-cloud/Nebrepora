@@ -118,6 +118,14 @@ th { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing
 .tech { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
 .sentiment { font-size: 13px; color: #d4d4d8; margin: 0 0 10px; padding-left: 10px; border-left: 2px solid var(--mint-deep); }
 .cites { margin: 0; color: var(--dim); }
+.stats { margin: 6px 0 0; color: var(--muted); }
+.stats a { color: var(--mint); text-decoration: none; }
+.stats a:hover { text-decoration: underline; }
+.badge.archived { color: var(--rose); border-color: #7f1d1d; }
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin: 10px 0; }
+.metrics-grid div { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.metrics-grid dt { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.metrics-grid dd { margin: 2px 0 0; font-size: 14px; }
 .badges { display: flex; flex-wrap: wrap; gap: 6px; }
 .badge { font-family: var(--mono); font-size: 11px; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .badge.live { color: var(--mint); border-color: #1f5f58; }

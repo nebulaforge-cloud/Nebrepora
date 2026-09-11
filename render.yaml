@@ -7,8 +7,10 @@ services:
     runtime: static
     repo: https://github.com/nebulaforge-cloud/Nebrepora
     branch: main
-    # Deploy only after the GitHub Actions "check" workflow passes.
-    autoDeployTrigger: checksPass
+    # Every push deploys (including the daily metrics commit). The build runs
+    # npm run check first, so a failing check fails the build and the current
+    # deploy stays live.
+    autoDeployTrigger: commit
     buildCommand: npm run check && npm run build
     staticPublishPath: ./public
     previews:
