@@ -7,7 +7,8 @@ import { fileURLToPath } from "node:url";
 const PUBLIC = join(dirname(fileURLToPath(import.meta.url)), "..", "public");
 const RULES = [
   [/<script(?![^>]*\bsrc=)(?![^>]*type="application\/ld\+json")[^>]*>/i, "inline <script>"],
-  [/<script[^>]*\bsrc="(?:https?:)?\/\//i, "off-site script"],
+  // The Cloudflare Web Analytics beacon is the one off-site script the CSP allows.
+  [/<script[^>]*\bsrc="(?:https?:)?\/\/(?!static\.cloudflareinsights\.com\/beacon\.min\.js")/i, "off-site script"],
   [/<link[^>]*\bhref="(?:https?:)?\/\/(?![^"]*nebulaforge\.dev)[^"]*"[^>]*rel="(?:stylesheet|preload|modulepreload)"|<link[^>]*rel="(?:stylesheet|preload|modulepreload)"[^>]*\bhref="(?:https?:)?\/\//i, "off-site stylesheet/preload"],
   [/<style[\s>]/i, "inline <style>"],
   [/\sstyle="/i, "inline style attribute"],

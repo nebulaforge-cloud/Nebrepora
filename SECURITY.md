@@ -1,6 +1,6 @@
 # Security policy
 
-Nebrepora is a static, client-only site: no backend, no accounts, no cookies, no analytics. The only data it stores is the shortlist of pinned ids, kept in the visitor's own `localStorage`.
+Nebrepora is a static, client-only site: no backend, no accounts, no cookies. Page views are counted with Cloudflare Web Analytics (cookie-free, no personal data). The only data it stores is the shortlist of pinned ids, kept in the visitor's own `localStorage`.
 
 ## Reporting a vulnerability
 
@@ -10,7 +10,7 @@ Please do not run automated scanners or load tests against production.
 
 ## Hardening in place
 
-- Strict Content-Security-Policy with no inline scripts or styles (`render.yaml`)
+- Strict Content-Security-Policy with no inline scripts or styles (`render.yaml`); the only off-site origins allowed are Cloudflare's analytics beacon and its reporting endpoint
 - HSTS, `X-Frame-Options: DENY` / `frame-ancestors 'none'`, `nosniff`, restrictive `Permissions-Policy`, COOP
 - All dynamic text is HTML-escaped; only `http(s)` URLs are rendered into links
 - `localStorage` input is validated against the shipped catalog before use

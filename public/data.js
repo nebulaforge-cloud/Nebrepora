@@ -30,7 +30,7 @@ export const FAQ = [
   { q: "Can I shortlist, compare, and export signals?",
     a: "Yes. Pin up to four signals to get a side-by-side compare table. Export downloads the filtered board as a Markdown briefing and a JSON file, Copy TL;DR copies a one-paragraph summary, and Deep inspect shows analysis, live GitHub metrics, and competitors." },
   { q: "Does Nebrepora need an account or collect personal data?",
-    a: "No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. Everything, including fonts, is served from this site — no third-party requests." },
+    a: "No. There is no sign-up and no cookies. Your pins are stored only in your own browser (localStorage) and never leave your device. Page views are counted with Cloudflare Web Analytics, which uses no cookies, no fingerprinting, and no personal data; fonts and all other assets are served from this site." },
   { q: "How current is the data?",
     a: `GitHub metrics — stars, 7- and 30-day star growth, commits in the last 30 days, last push, and latest release — refresh automatically every day from the GitHub API. Velocity scores, hooks, and analysis are analyst judgments reviewed by hand; the watchlist was last reviewed on ${SITE.updated}.` }
 ];

@@ -167,7 +167,7 @@
           "name": "Does Nebrepora need an account or collect personal data?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. Everything, including fonts, is served from this site — no third-party requests."
+            "text": "No. There is no sign-up and no cookies. Your pins are stored only in your own browser (localStorage) and never leave your device. Page views are counted with Cloudflare Web Analytics, which uses no cookies, no fingerprinting, and no personal data; fonts and all other assets are served from this site."
           }
         },
         {
@@ -888,7 +888,7 @@
           <article><h3>Which departments and categories does Nebrepora cover?</h3><p>Engineering (compilers, systems, databases, AI infrastructure, full-stack and dev tools), Game UI/UX (HUD, menus, immediate-mode and engine UI), Art (pixel, 3D, VFX, DCC and animation tools), and Other engineering (audio, live-ops, build, QA, and source control).</p></article>
           <article><h3>What does Run scan do?</h3><p>Run scan adds up to three new signals that match your scan focus and the current department and category filters. In this public edition, scans draw from a curated scan pool rather than a live API, so results are consistent and need no account or key.</p></article>
           <article><h3>Can I shortlist, compare, and export signals?</h3><p>Yes. Pin up to four signals to get a side-by-side compare table. Export downloads the filtered board as a Markdown briefing and a JSON file, Copy TL;DR copies a one-paragraph summary, and Deep inspect shows analysis, live GitHub metrics, and competitors.</p></article>
-          <article><h3>Does Nebrepora need an account or collect personal data?</h3><p>No. There is no sign-up, no cookies, and no analytics. Your pins are stored only in your own browser (localStorage) and never leave your device. Everything, including fonts, is served from this site — no third-party requests.</p></article>
+          <article><h3>Does Nebrepora need an account or collect personal data?</h3><p>No. There is no sign-up and no cookies. Your pins are stored only in your own browser (localStorage) and never leave your device. Page views are counted with Cloudflare Web Analytics, which uses no cookies, no fingerprinting, and no personal data; fonts and all other assets are served from this site.</p></article>
           <article><h3>How current is the data?</h3><p>GitHub metrics — stars, 7- and 30-day star growth, commits in the last 30 days, last push, and latest release — refresh automatically every day from the GitHub API. Velocity scores, hooks, and analysis are analyst judgments reviewed by hand; the watchlist was last reviewed on 2026-09-11.</p></article>
         </div>
       </section>
@@ -915,5 +915,7 @@
     <div class="actions"><button class="btn" id="closeGuide" type="button">Close</button></div>
   </div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <!-- Cloudflare Web Analytics: cookie-free page-view counts -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "1c5977be353b4520b471b1b597564b34"}'></script>
 </body>
 </html>

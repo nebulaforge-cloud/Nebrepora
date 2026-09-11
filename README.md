@@ -41,7 +41,7 @@ data/
   metrics-history.json  daily star counts used for growth (not deployed)
 ```
 
-No framework, no runtime dependencies, and no third-party requests: fonts, scripts, and styles are all served from the site. Node ≥ 20 is only used at build time.
+No framework and no runtime dependencies. Fonts, scripts, and styles are all served from the site; the only third-party request is Cloudflare Web Analytics' cookie-free beacon. Node ≥ 20 is only used at build time.
 
 ## Develop
 
