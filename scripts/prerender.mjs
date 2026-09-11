@@ -3,7 +3,7 @@
 // Renders the default board (All departments, sorted by score) into
 // public/index.html using the same view functions the browser uses, and
 // regenerates the SEO / AEO / GEO files from public/data.js:
-//   robots.txt, sitemap.xml, llms.txt, site.webmanifest, 404.html,
+//   robots.txt, sitemap.xml, llms.txt, manifest.json, 404.html,
 //   .well-known/security.txt
 //
 // Usage:  node scripts/prerender.mjs          write files
@@ -64,7 +64,7 @@ const head = `
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="manifest" href="/manifest.json" />
   `;
 
 const features = [
@@ -272,7 +272,7 @@ const outputs = {
   "robots.txt": robots,
   "sitemap.xml": sitemap,
   "llms.txt": llms,
-  "site.webmanifest": manifest,
+  "manifest.json": manifest,
   "404.html": notFound,
   ".well-known/security.txt": securityTxt
 };
