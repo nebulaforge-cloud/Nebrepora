@@ -14,6 +14,16 @@ export const fmtDay = (iso) => iso
   ? new Date(`${iso.slice(0, 10)}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })
   : "—";
 export const metricsFor = (id) => (Object.hasOwn(METRICS, id) ? METRICS[id] : null);
+
+// Decorative sprites: Pac-Man for the whole board, one ghost per department.
+// Colour comes from CSS (.sprite-*), so no inline styles are needed.
+const SPRITE_CLASS = { All: "pac", Engineering: "eng", "Game UI/UX": "ui", Art: "art", "Other Eng": "ops" };
+const PAC = `<path fill="currentColor" d="M8 8 15 4.2A7.6 7.6 0 1 0 15 11.8Z"/><circle cx="8" cy="4.2" r="1.1" fill="#000"/>`;
+const GHOST = `<path fill="currentColor" d="M1 15V7.5a7 7 0 0 1 14 0V15l-2.33-2.33L10.33 15 8 12.67 5.67 15 3.33 12.67z"/><circle cx="5.5" cy="7" r="1.9" fill="#fff"/><circle cx="10.5" cy="7" r="1.9" fill="#fff"/><circle cx="6.1" cy="7.4" r="1" fill="#2A3FE5"/><circle cx="11.1" cy="7.4" r="1" fill="#2A3FE5"/>`;
+export function sprite(deptId){
+  const cls = SPRITE_CLASS[deptId] || "pac";
+  return `<svg class="sprite sprite-${cls}" viewBox="0 0 16 16" aria-hidden="true" focusable="false">${cls === "pac" ? PAC : GHOST}</svg>`;
+}
 export const repoUrl = (m) => `https://github.com/${m.repo}`;
 
 const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
@@ -60,7 +70,7 @@ export const catsFor = (items, dept) => dept === "All"
 export function deptsHTML(items, dept){
   return DEPTS.map((d) => {
     const n = d.id === "All" ? items.length : items.filter((i) => i.dept === d.id).length;
-    return `<button class="dept-card" type="button" aria-pressed="${d.id === dept}" data-d="${esc(d.id)}"><b>${esc(d.name)}<span class="k">${n}</span></b><span>${esc(d.blurb)}</span></button>`;
+    return `<button class="dept-card" type="button" aria-pressed="${d.id === dept}" data-d="${esc(d.id)}"><b>${sprite(d.id)}${esc(d.name)}<span class="k">${n}</span></b><span>${esc(d.blurb)}</span></button>`;
   }).join("");
 }
 
@@ -136,7 +146,7 @@ export function boardHTML(list, dept, pins = [], fresh = new Set()){
     if (!slice.length) return "";
     const info = DEPTS.find((x) => x.id === d);
     return `<section class="lane" aria-label="${esc(info.name)}">
-      <div class="lane-head"><h2>${esc(info.name)}</h2><span class="muted">${slice.length}</span><span class="blurb">${esc(info.blurb)}</span></div>
+      <div class="lane-head">${sprite(d)}<h2>${esc(info.name)}</h2><span class="muted">${slice.length}</span><span class="blurb">${esc(info.blurb)}</span></div>
       <div class="board">${slice.map((it) => cardHTML(it, pins, fresh)).join("")}</div>
     </section>`;
   }).join("") || EMPTY;

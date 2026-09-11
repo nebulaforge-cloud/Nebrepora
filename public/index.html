@@ -10,7 +10,7 @@
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
   <meta name="author" content="NebulaForge" />
   <meta name="application-name" content="Nebrepora" />
-  <meta name="theme-color" content="#09090b" />
+  <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Nebrepora" />
@@ -33,7 +33,8 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <!-- /prerender:head -->
-  <link rel="preload" href="/fonts/instrument-sans-v4-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/space-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/press-start-2p-400-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="modulepreload" href="/data.js" />
   <link rel="modulepreload" href="/view.js" />
@@ -352,7 +353,7 @@
   <div class="wrap">
     <header>
       <div class="brand">
-        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#111113" stroke="#27272a"/><path d="M5 17h5l3-7 5 13 3-6h6" fill="none" stroke="#5eead4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path fill="#FFE600" d="M17 24 31.5 15.6A16.5 16.5 0 1 0 31.5 32.4Z"/><circle cx="17" cy="14" r="2.2" fill="#000"/><circle cx="37" cy="24" r="2.5" fill="#F4B9B0"/><circle cx="45" cy="24" r="2.5" fill="#F4B9B0"/></svg>
         <div>
           <p class="eyebrow">Signal board · live watchlist</p>
           <h1>Nebrepora</h1>
@@ -372,7 +373,7 @@
     <main>
       <section class="panel" aria-labelledby="deptTitle">
         <h2 class="eyebrow" id="deptTitle">Departments</h2>
-        <div class="dept-grid" id="depts"><!-- prerender:depts --><button class="dept-card" type="button" aria-pressed="true" data-d="All"><b>All departments<span class="k">22</span></b><span>Studio-wide signal board.</span></button><button class="dept-card" type="button" aria-pressed="false" data-d="Engineering"><b>Engineering<span class="k">6</span></b><span>Compilers, systems, data, AI infra, tooling.</span></button><button class="dept-card" type="button" aria-pressed="false" data-d="Game UI/UX"><b>Game UI / UX<span class="k">6</span></b><span>HUD, menus, interaction, game feel, accessibility.</span></button><button class="dept-card" type="button" aria-pressed="false" data-d="Art"><b>Art<span class="k">5</span></b><span>Pixel, 3D, VFX, pipelines, look-dev kits.</span></button><button class="dept-card" type="button" aria-pressed="false" data-d="Other Eng"><b>Other engineering<span class="k">5</span></b><span>Audio, live-ops, tools, QA, platform, build.</span></button><!-- /prerender:depts --></div>
+        <div class="dept-grid" id="depts"><!-- prerender:depts --><button class="dept-card" type="button" aria-pressed="true" data-d="All"><b><svg class="sprite sprite-pac" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 8 15 4.2A7.6 7.6 0 1 0 15 11.8Z"/><circle cx="8" cy="4.2" r="1.1" fill="#000"/></svg>All departments<span class="k">22</span></b><span>Studio-wide signal board.</span></button><button class="dept-card" type="button" aria-pressed="false" data-d="Engineering"><b><svg class="sprite sprite-eng" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 15V7.5a7 7 0 0 1 14 0V15l-2.33-2.33L10.33 15 8 12.67 5.67 15 3.33 12.67z"/><circle cx="5.5" cy="7" r="1.9" fill="#fff"/><circle cx="10.5" cy="7" r="1.9" fill="#fff"/><circle cx="6.1" cy="7.4" r="1" fill="#2A3FE5"/><circle cx="11.1" cy="7.4" r="1" fill="#2A3FE5"/></svg>Engineering<span class="k">6</span></b><span>Compilers, systems, data, AI infra, tooling.</span></button><button class="dept-card" type="button" aria-pressed="false" data-d="Game UI/UX"><b><svg class="sprite sprite-ui" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 15V7.5a7 7 0 0 1 14 0V15l-2.33-2.33L10.33 15 8 12.67 5.67 15 3.33 12.67z"/><circle cx="5.5" cy="7" r="1.9" fill="#fff"/><circle cx="10.5" cy="7" r="1.9" fill="#fff"/><circle cx="6.1" cy="7.4" r="1" fill="#2A3FE5"/><circle cx="11.1" cy="7.4" r="1" fill="#2A3FE5"/></svg>Game UI / UX<span class="k">6</span></b><span>HUD, menus, interaction, game feel, accessibility.</span></button><button class="dept-card" type="button" aria-pressed="false" data-d="Art"><b><svg class="sprite sprite-art" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 15V7.5a7 7 0 0 1 14 0V15l-2.33-2.33L10.33 15 8 12.67 5.67 15 3.33 12.67z"/><circle cx="5.5" cy="7" r="1.9" fill="#fff"/><circle cx="10.5" cy="7" r="1.9" fill="#fff"/><circle cx="6.1" cy="7.4" r="1" fill="#2A3FE5"/><circle cx="11.1" cy="7.4" r="1" fill="#2A3FE5"/></svg>Art<span class="k">5</span></b><span>Pixel, 3D, VFX, pipelines, look-dev kits.</span></button><button class="dept-card" type="button" aria-pressed="false" data-d="Other Eng"><b><svg class="sprite sprite-ops" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 15V7.5a7 7 0 0 1 14 0V15l-2.33-2.33L10.33 15 8 12.67 5.67 15 3.33 12.67z"/><circle cx="5.5" cy="7" r="1.9" fill="#fff"/><circle cx="10.5" cy="7" r="1.9" fill="#fff"/><circle cx="6.1" cy="7.4" r="1" fill="#2A3FE5"/><circle cx="11.1" cy="7.4" r="1" fill="#2A3FE5"/></svg>Other engineering<span class="k">5</span></b><span>Audio, live-ops, tools, QA, platform, build.</span></button><!-- /prerender:depts --></div>
       </section>
 
       <div class="row controls" role="search">
@@ -396,7 +397,7 @@
 
       <div class="meta"><span id="count" aria-live="polite"><!-- prerender:count -->22 of 22 signals<!-- /prerender:count --></span><span class="k" id="sortLabel">sorted by score</span></div>
       <div id="board"><!-- prerender:board --><section class="lane" aria-label="Engineering">
-      <div class="lane-head"><h2>Engineering</h2><span class="muted">6</span><span class="blurb">Compilers, systems, data, AI infra, tooling.</span></div>
+      <div class="lane-head"><svg class="sprite sprite-eng" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 15V7.5a7 7 0 0 1 14 0V15l-2.33-2.33L10.33 15 8 12.67 5.67 15 3.33 12.67z"/><circle cx="5.5" cy="7" r="1.9" fill="#fff"/><circle cx="10.5" cy="7" r="1.9" fill="#fff"/><circle cx="6.1" cy="7.4" r="1" fill="#2A3FE5"/><circle cx="11.1" cy="7.4" r="1" fill="#2A3FE5"/></svg><h2>Engineering</h2><span class="muted">6</span><span class="blurb">Compilers, systems, data, AI infra, tooling.</span></div>
       <div class="board"><article class="card">
     <div class="badges">
       <span class="badge vel-high">91 High signal</span>
@@ -525,7 +526,7 @@
     </div>
   </article></div>
     </section><section class="lane" aria-label="Game UI / UX">
-      <div class="lane-head"><h2>Game UI / UX</h2><span class="muted">6</span><span class="blurb">HUD, menus, interaction, game feel, accessibility.</span></div>
+      <div class="lane-head"><svg class="sprite sprite-ui" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 15V7.5a7 7 0 0 1 14 0V15l-2.33-2.33L10.33 15 8 12.67 5.67 15 3.33 12.67z"/><circle cx="5.5" cy="7" r="1.9" fill="#fff"/><circle cx="10.5" cy="7" r="1.9" fill="#fff"/><circle cx="6.1" cy="7.4" r="1" fill="#2A3FE5"/><circle cx="11.1" cy="7.4" r="1" fill="#2A3FE5"/></svg><h2>Game UI / UX</h2><span class="muted">6</span><span class="blurb">HUD, menus, interaction, game feel, accessibility.</span></div>
       <div class="board"><article class="card">
     <div class="badges">
       <span class="badge vel-high">90 High signal</span>
@@ -654,7 +655,7 @@
     </div>
   </article></div>
     </section><section class="lane" aria-label="Art">
-      <div class="lane-head"><h2>Art</h2><span class="muted">5</span><span class="blurb">Pixel, 3D, VFX, pipelines, look-dev kits.</span></div>
+      <div class="lane-head"><svg class="sprite sprite-art" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 15V7.5a7 7 0 0 1 14 0V15l-2.33-2.33L10.33 15 8 12.67 5.67 15 3.33 12.67z"/><circle cx="5.5" cy="7" r="1.9" fill="#fff"/><circle cx="10.5" cy="7" r="1.9" fill="#fff"/><circle cx="6.1" cy="7.4" r="1" fill="#2A3FE5"/><circle cx="11.1" cy="7.4" r="1" fill="#2A3FE5"/></svg><h2>Art</h2><span class="muted">5</span><span class="blurb">Pixel, 3D, VFX, pipelines, look-dev kits.</span></div>
       <div class="board"><article class="card">
     <div class="badges">
       <span class="badge vel-high">92 High signal</span>
@@ -762,7 +763,7 @@
     </div>
   </article></div>
     </section><section class="lane" aria-label="Other engineering">
-      <div class="lane-head"><h2>Other engineering</h2><span class="muted">5</span><span class="blurb">Audio, live-ops, tools, QA, platform, build.</span></div>
+      <div class="lane-head"><svg class="sprite sprite-ops" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M1 15V7.5a7 7 0 0 1 14 0V15l-2.33-2.33L10.33 15 8 12.67 5.67 15 3.33 12.67z"/><circle cx="5.5" cy="7" r="1.9" fill="#fff"/><circle cx="10.5" cy="7" r="1.9" fill="#fff"/><circle cx="6.1" cy="7.4" r="1" fill="#2A3FE5"/><circle cx="11.1" cy="7.4" r="1" fill="#2A3FE5"/></svg><h2>Other engineering</h2><span class="muted">5</span><span class="blurb">Audio, live-ops, tools, QA, platform, build.</span></div>
       <div class="board"><article class="card">
     <div class="badges">
       <span class="badge vel-high">84 High signal</span>

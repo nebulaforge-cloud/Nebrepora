@@ -43,7 +43,7 @@ const head = `
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
   <meta name="author" content="${esc(SITE.org.name)}" />
   <meta name="application-name" content="${esc(SITE.name)}" />
-  <meta name="theme-color" content="#09090b" />
+  <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${esc(SITE.name)}" />
@@ -226,8 +226,8 @@ const manifest = JSON.stringify({
   start_url: "/",
   scope: "/",
   display: "standalone",
-  background_color: "#09090b",
-  theme_color: "#09090b",
+  background_color: "#000000",
+  theme_color: "#000000",
   icons: [
     { src: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
     { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
@@ -251,7 +251,7 @@ const notFound = `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Page not found — ${esc(SITE.name)}</title>
   <meta name="robots" content="noindex" />
-  <meta name="theme-color" content="#09090b" />
+  <meta name="theme-color" content="#000000" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
