@@ -5,7 +5,7 @@
   "description": "Nebrepora — signal board for early open-source and dev-tool breakthroughs.",
   "type": "module",
   "license": "UNLICENSED",
-  "engines": { "node": ">=20" },
+  "engines": { "node": ">=20 <25" },
   "scripts": {
     "build": "node scripts/prerender.mjs",
     "check": "node --check public/app.js && node --check public/view.js && node --check public/data.js && node scripts/prerender.mjs --check",

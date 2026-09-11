@@ -1,0 +1,48 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Static site: only public/ is published. No SPA rewrite, so unknown paths
+# return a real 404 instead of a soft-404 copy of the homepage.
+services:
+  - type: web
+    name: nebrepora
+    runtime: static
+    repo: https://github.com/nebulaforge-cloud/Nebrepora
+    branch: main
+    # Deploy only after the GitHub Actions "check" workflow passes.
+    autoDeployTrigger: checksPass
+    buildCommand: npm run check && npm run build
+    staticPublishPath: ./public
+    previews:
+      generation: off
+    domains:
+      - nebrepora.nebulaforge.dev
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+    headers:
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=63072000; includeSubDomains
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), browsing-topics=()
+      - path: /*
+        name: Cross-Origin-Opener-Policy
+        value: same-origin
+      - path: /fonts/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /og-image.png
+        name: Cache-Control
+        value: public, max-age=86400

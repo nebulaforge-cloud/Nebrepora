@@ -10,7 +10,7 @@ Please do not run automated scanners or load tests against production.
 
 ## Hardening in place
 
-- Strict Content-Security-Policy with no inline scripts or styles (`netlify.toml`)
+- Strict Content-Security-Policy with no inline scripts or styles (`render.yaml`)
 - HSTS, `X-Frame-Options: DENY` / `frame-ancestors 'none'`, `nosniff`, restrictive `Permissions-Policy`, COOP
 - All dynamic text is HTML-escaped; only `http(s)` URLs are rendered into links
 - `localStorage` input is validated against the shipped catalog before use

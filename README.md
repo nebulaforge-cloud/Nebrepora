@@ -50,19 +50,22 @@ After editing `public/data.js` or `public/view.js`:
 npm run build
 ```
 
-`npm run check` fails if generated files are stale; CI and the Netlify build both run it. Run `npm run assets` after changing the icon or share-card design.
+`npm run check` fails if generated files are stale; CI and the Render build both run it. Run `npm run assets` after changing the icon or share-card design.
 
-To change the domain, edit `SITE.url` in `public/data.js`, then rebuild and re-render assets.
+To change the domain, edit `SITE.url` in `public/data.js` and `domains` in `render.yaml`, then rebuild and re-render assets.
 
-## Deploy (Netlify + subdomain)
+## Deploy (Render static site + subdomain)
 
-`netlify.toml` sets the build command, publishes only `public/`, and applies the security headers.
+`render.yaml` is a Render Blueprint. It creates a free static site, runs the check and build, publishes only `public/`, applies the security headers, and attaches `nebrepora.nebulaforge.dev`. Node is pinned to 22 via `.node-version` and `NODE_VERSION`.
 
-1. **Netlify** → site `nebrepora` → *Site configuration → Build & deploy → Link repository* → GitHub → `nebulaforge-cloud/Nebrepora`, branch `main`. Build settings come from `netlify.toml`.
-2. *Domain management → Add a domain* → `nebrepora.nebulaforge.dev` → set it as the **primary domain**. `nebrepora.netlify.app` then 301-redirects to it.
-3. **Porkbun** → `nebulaforge.dev` → DNS → add a record: type `CNAME`, host `nebrepora`, answer `nebrepora.netlify.app`, TTL `600`.
-4. Back in Netlify: *HTTPS → Verify DNS configuration*. The Let's Encrypt certificate is issued automatically. `.dev` is HSTS-preloaded, so the site loads only once the certificate exists.
-5. Keep *Visitor access* public (no SSO or password).
+1. **Render** → *New → Blueprint* → connect `nebulaforge-cloud/Nebrepora` (grant the Render GitHub app access to the repo if prompted) → *Apply*.
+2. Open the new **nebrepora** static site and note its `*.onrender.com` hostname (usually `nebrepora.onrender.com`).
+3. **Porkbun** → `nebulaforge.dev` → DNS → add a record: type `CNAME`, host `nebrepora`, answer `<that hostname>`, TTL `600`. Leave the existing apex/`www` records alone; they serve the main site.
+4. Render → site → *Settings → Custom Domains* → *Verify*. The TLS certificate is issued automatically. `.dev` is HSTS-preloaded, so the site loads only once the certificate exists.
+
+Deploys run automatically on every push to `main` once the GitHub `check` workflow passes (`autoDeployTrigger: checksPass`).
+
+Custom domains count per Render workspace (Hobby includes 2). If `nebulaforge.dev` and `www` already use them, this subdomain is billed at $0.25/month.
 
 After launch, add the subdomain to Google Search Console and Bing Webmaster Tools and submit `/sitemap.xml`.
 
