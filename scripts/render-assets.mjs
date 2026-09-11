@@ -1,15 +1,18 @@
-// Renders the binary brand assets in public/ from the HTML sources in
-// scripts/assets/ using a local headless Chromium (Edge or Chrome).
-// Run after changing the icon or share-card design:  npm run assets
-// Set BROWSER_PATH to point at a specific Chromium binary.
+// Renders the binary brand assets in public/ with a local headless Chromium (Edge or Chrome):
+//   favicon.ico                      flat pixel mark (scripts/assets/icon.html), crisp at 32/48px
+//   icon-512/192, apple-touch-icon   3D gold mark (brand/logo renderer), inside the maskable safe zone
+//   og-image.png                     3D gold lockup, 1200x630
+// Run after changing the mark:  npm run assets      (BROWSER_PATH overrides the browser)
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdtempSync, readFileSync, writeFileSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, mkdtempSync, readFileSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const PUBLIC = join(HERE, "..", "public");
+const ROOT = join(HERE, "..");
+const PUBLIC = join(ROOT, "public");
+const LOGO = join(ROOT, "brand", "logo");
 const CANDIDATES = [
   process.env.BROWSER_PATH,
   "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
@@ -27,12 +30,17 @@ const tmp = mkdtempSync(join(tmpdir(), "nebrepora-assets-"));
 function shot(source, width, height, out, page = width){
   execFileSync(browser, [
     "--headless=new", "--disable-gpu", "--hide-scrollbars", "--no-first-run",
-    "--allow-file-access-from-files", // lets the local HTML sources load public/fonts
     `--user-data-dir=${join(tmp, "profile")}`, `--force-device-scale-factor=${width / page}`,
-    `--window-size=${page},${Math.round(height * page / width)}`, "--virtual-time-budget=6000",
+    `--window-size=${page},${Math.round(height * page / width)}`, "--virtual-time-budget=4000",
     `--screenshot=${out}`, pathToFileURL(join(HERE, "assets", source)).href
   ], { stdio: "ignore" });
   console.log(`rendered ${out.replace(PUBLIC, "public")} (${width}x${height})`);
+}
+// 3D renders come from the GPU ray tracer in brand/logo (final lockup frame, t = 7.2s).
+function logo(name, args){
+  execFileSync(process.execPath, [join(LOGO, "render.mjs"), "still", "--t=7.2", `--name=${name}`, ...args], { stdio: "ignore" });
+  copyFileSync(join(LOGO, "out", name), join(PUBLIC, name));
+  console.log(`rendered public/${name} (3D, ${args.join(" ")})`);
 }
 
 // ICO container holding PNG-encoded images (supported by every modern browser).
@@ -54,10 +62,10 @@ function writeIco(pngPaths, sizes, out){
 }
 
 try {
-  shot("og-image.html", 1200, 630, join(PUBLIC, "og-image.png"));
-  shot("icon.html", 512, 512, join(PUBLIC, "icon-512.png"));
-  shot("icon.html", 192, 192, join(PUBLIC, "icon-192.png"), 512);
-  shot("icon.html", 180, 180, join(PUBLIC, "apple-touch-icon.png"), 512);
+  logo("og-image.png", ["--w=1200", "--h=630", "--spp=4"]);
+  logo("icon-512.png", ["--frame=mark", "--w=512", "--h=512", "--spp=4", "--zoom=1.25"]);
+  logo("icon-192.png", ["--frame=mark", "--w=192", "--h=192", "--spp=4", "--zoom=1.25"]);
+  logo("apple-touch-icon.png", ["--frame=mark", "--w=180", "--h=180", "--spp=4", "--zoom=1.3"]);
   const ico = [32, 48].map((s) => { const p = join(tmp, `ico-${s}.png`); shot("icon.html", s, s, p, 512); return p; });
   writeIco(ico, [32, 48], join(PUBLIC, "favicon.ico"));
 } finally {

@@ -92,7 +92,7 @@ After launch, add the subdomain to Google Search Console and Bing Webmaster Tool
 
 ## Design
 
-Pac-Man arcade theme. Tokens, component states, accessibility rules, and the review checklist are in [DESIGN.md](DESIGN.md).
+Arcade theme with the gold "Breakout" mark. Tokens, component states, accessibility rules, and the review checklist are in [DESIGN.md](DESIGN.md).
 
 ## Security
 

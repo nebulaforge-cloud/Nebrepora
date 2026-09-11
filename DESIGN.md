@@ -1,6 +1,6 @@
-# Nebrepora design system — Pac-Man arcade theme
+# Nebrepora design system — arcade theme
 
-**Intent:** the board is an arcade maze. Black ground, blue dotted walls, pellet-peach highlights, pixel-font display type over a readable mono body, and one ghost per department. Every text pair meets WCAG 2.2 AA.
+**Intent:** the board is an arcade maze. Black ground, blue dotted walls, pellet-peach highlights, pixel-font display type over a readable mono body, and one colour-coded pixel icon per department. The brand mark is the gold voxel **N** with a peach breakout cube (see `brand/logo/`). No third-party characters or trademarks are used. Every text pair meets WCAG 2.2 AA.
 
 All tokens live in `public/styles.css` under `:root`. Components must use tokens, never raw values.
 
@@ -23,9 +23,9 @@ All tokens live in `public/styles.css` under `:root`. Components must use tokens
 | `--neutral` | `#3A3A5C` | "Watch" badge fill (white text), idle control borders | 10.8:1 w/ white |
 | `--danger` / `--danger-text` | `#DC2626` / `#F87171` | Fill/border / text | — / 7.0:1 |
 | `--info` | `#22D3EE` | "Live scan" badge | 10.7:1 |
-| `--pac` | `#FFE600` | Pac-Man glyph only | decorative |
+| `--gold` | `#E2B24A` | Nebrepora mark only (header, All-departments icon) | decorative |
 
-Department ghosts are decorative and always sit beside a text label: Engineering = Blinky (`--danger`), Game UI/UX = Pinky (`--secondary`), Art = Inky (`--info`), Other engineering = Clyde (`--warning`). All departments = Pac-Man (`--pac`).
+Department icons are original 8×8 pixel sprites (`view.js`), decorative, and always sit beside a text label: Engineering = terminal `>_` (`--dept-eng`, red), Game UI/UX = D-pad (`--dept-ui`, peach), Art = pencil (`--dept-art`, cyan), Other engineering = gear (`--dept-ops`, orange). All departments = the mini N mark (`--gold`, with a `--secondary` breakout pixel).
 
 Panels **must** stay `--surface`. On a lifted panel (`#0B0B24`), `--accent-text` falls to 4.22:1 and fails.
 
@@ -52,7 +52,7 @@ Long question headings (FAQ) use Space Mono bold: the pixel face loses legibilit
 | Button (`.ghost`) | black, 2px `--accent-line` border | `--accent-fill` + `--on-accent` | 3px `--secondary` outline, 3px offset | 2px press-down | 50% opacity, not-allowed |
 | Primary (`.btn.primary`) | `--accent-fill` | `--secondary` fill, black text | same | same | same |
 | Chip | black, 2px `--neutral` border, `--muted` text | `--accent-line` border | same | `--accent-fill` fill (plus `aria-pressed`) | — |
-| Department card | as chip, with ghost + count | as chip | same | `--accent-fill`, all text `--on-accent` | — |
+| Department card | as chip, with pixel icon + count | as chip | same | `--accent-fill`, all text `--on-accent` | — |
 | Card | `--wall` | none (cards aren't clickable) | — | pinned: 4px solid `--secondary` | — |
 | Fresh (scan-added) card | 4 blinks to `--secondary` | — | — | reduced motion: static `--secondary` border | — |
 
@@ -66,7 +66,8 @@ Long question headings (FAQ) use Space Mono bold: the pixel face loses legibilit
 - **Do** put body accent text in `--accent-text`. **Don't** put body text in `--accent`, which is 2.94:1 and fails.
 - **Do** use `--danger-text` for red text. **Don't** use `--danger` as a text color (4.35:1).
 - **Do** keep headings short in Press Start 2P. **Don't** set paragraphs or FAQ questions in the pixel face.
-- **Do** pair every ghost with its department name. **Don't** use ghost color alone to convey a department.
+- **Do** pair every department icon with its name. **Don't** use icon colour alone to convey a department.
+- **Don't** add third-party game characters or logos (Pac-Man, ghosts, etc.); they are trademarks.
 - **Don't** add inline `style=""` or `<style>`: the CSP blocks them and `npm run check` fails.
 - **Don't** add rounded corners, gradients on surfaces, or decorative looping animation.
 

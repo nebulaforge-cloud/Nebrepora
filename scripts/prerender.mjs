@@ -22,7 +22,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "public");
 const CHECK = process.argv.includes("--check");
 const HOME = `${SITE.url}/`;
 const OG_IMAGE = `${SITE.url}/og-image.png`;
-const OG_ALT = "Nebrepora signal board: velocity-scored open-source signals across Engineering, Game UI/UX, Art, and Other engineering.";
+const OG_ALT = "Nebrepora logo: a polished gold voxel N with one glowing cube breaking out above it, over the NEBREPORA wordmark.";
 const jsonLd = (obj) => JSON.stringify(obj, null, 2).replace(/</g, "\\u003c");
 const fmtDate = (iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 

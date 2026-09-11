@@ -1,6 +1,6 @@
-/* Nebrepora — Pac-Man arcade theme.
+/* Nebrepora — arcade theme.
    Intent: a black maze with blue dotted walls; pixel-font display type, readable
-   mono body, pellet-peach highlights, one ghost colour per department.
+   mono body, pellet-peach highlights, one colour-coded pixel icon per department.
    All text pairs meet WCAG 2.2 AA on --surface (ratios noted per token). */
 
 /* Self-hosted typefaces (SIL OFL 1.1, licenses in /fonts). No third-party requests. */
@@ -47,12 +47,12 @@
   --info: #22D3EE;          /* 10.7:1 */
   --neutral: #3A3A5C;       /* fill, with white text (10.8:1) */
   --on-status: #000000;
-  --pac: #FFE600;           /* logo glyph only */
-  /* Department ghosts (decorative, always paired with a text label) */
-  --ghost-eng: var(--danger);
-  --ghost-ui: var(--secondary);
-  --ghost-art: var(--info);
-  --ghost-ops: var(--warning);
+  --gold: #E2B24A;          /* Nebrepora mark only (decorative) */
+  /* Department icon colours (decorative, always paired with a text label) */
+  --dept-eng: var(--danger);
+  --dept-ui: var(--secondary);
+  --dept-art: var(--info);
+  --dept-ops: var(--warning);
   /* Type: pixel face renders crisply at multiples of 8px */
   --font-display: "Press Start 2P", ui-monospace, monospace;
   --font-body: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -140,11 +140,12 @@ select { cursor: pointer; }
 
 /* Sprites (decorative; every sprite sits next to a text label) */
 .sprite { width: var(--s2); height: var(--s2); flex: none; vertical-align: -2px; }
-.sprite-pac { color: var(--pac); }
-.sprite-eng { color: var(--ghost-eng); }
-.sprite-ui { color: var(--ghost-ui); }
-.sprite-art { color: var(--ghost-art); }
-.sprite-ops { color: var(--ghost-ops); }
+.sprite-mark { color: var(--gold); }
+.sprite .accent { fill: var(--secondary); }
+.sprite-eng { color: var(--dept-eng); }
+.sprite-ui { color: var(--dept-ui); }
+.sprite-art { color: var(--dept-art); }
+.sprite-ops { color: var(--dept-ops); }
 
 /* Departments */
 .dept-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(208px, 1fr)); gap: var(--s1); margin-top: var(--s2); }

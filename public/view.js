@@ -15,15 +15,23 @@ export const fmtDay = (iso) => iso
   : "—";
 export const metricsFor = (id) => (Object.hasOwn(METRICS, id) ? METRICS[id] : null);
 
-// Decorative sprites: Pac-Man for the whole board, one ghost per department.
-// Colour comes from CSS (.sprite-*), so no inline styles are needed.
-const SPRITE_CLASS = { All: "pac", Engineering: "eng", "Game UI/UX": "ui", Art: "art", "Other Eng": "ops" };
-const PAC = `<path fill="currentColor" d="M8 8 15 4.2A7.6 7.6 0 1 0 15 11.8Z"/><circle cx="8" cy="4.2" r="1.1" fill="#000"/>`;
-const GHOST = `<path fill="currentColor" d="M1 15V7.5a7 7 0 0 1 14 0V15l-2.33-2.33L10.33 15 8 12.67 5.67 15 3.33 12.67z"/><circle cx="5.5" cy="7" r="1.9" fill="#fff"/><circle cx="10.5" cy="7" r="1.9" fill="#fff"/><circle cx="6.1" cy="7.4" r="1" fill="#2A3FE5"/><circle cx="11.1" cy="7.4" r="1" fill="#2A3FE5"/>`;
-export function sprite(deptId){
-  const cls = SPRITE_CLASS[deptId] || "pac";
-  return `<svg class="sprite sprite-${cls}" viewBox="0 0 16 16" aria-hidden="true" focusable="false">${cls === "pac" ? PAC : GHOST}</svg>`;
+// Decorative 8x8 pixel sprites, original artwork: the Nebrepora mark for the
+// whole board, one icon per department. "X" = sprite colour (CSS currentColor),
+// "o" = accent pixel (the breakout voxel). Always rendered next to a text label.
+const SPRITES = {
+  All: { cls: "mark", rows: [".....o..", "........", ".X...X..", ".XX..X..", ".X.X.X..", ".X..XX..", ".X...X..", "........"] },
+  Engineering: { cls: "eng", rows: ["........", "X.......", ".X......", "..X.....", ".X......", "X...XXXX", "........", "........"] },
+  "Game UI/UX": { cls: "ui", rows: ["........", "...XX...", "...XX...", ".XXXXXX.", ".XXXXXX.", "...XX...", "...XX...", "........"] },
+  Art: { cls: "art", rows: ["......XX", ".....XXX", "....XXX.", "...XXX..", "..XXX...", ".XXX....", "XX......", "X......."] },
+  "Other Eng": { cls: "ops", rows: ["...XX...", ".X.XX.X.", "..XXXX..", "XXX..XXX", "XXX..XXX", "..XXXX..", ".X.XX.X.", "...XX..."] }
+};
+const spriteSvg = {};
+for (const [id, { cls, rows }] of Object.entries(SPRITES)) {
+  const px = rows.flatMap((r, y) => [...r].map((ch, x) => ch === "X" ? `<rect x="${x}" y="${y}" width="1" height="1"/>`
+    : ch === "o" ? `<rect class="accent" x="${x}" y="${y}" width="1" height="1"/>` : "")).join("");
+  spriteSvg[id] = `<svg class="sprite sprite-${cls}" viewBox="0 0 8 8" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true" focusable="false">${px}</svg>`;
 }
+export const sprite = (deptId) => spriteSvg[deptId] || spriteSvg.All;
 export const repoUrl = (m) => `https://github.com/${m.repo}`;
 
 const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
