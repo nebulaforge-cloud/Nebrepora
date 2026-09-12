@@ -98,7 +98,7 @@ function resolveItem(q){
   return items.find(match) || CATALOG.find(match) || null;
 }
 
-function openInspect(idOrUrl){
+function openInspect(idOrUrl, { announce = false } = {}){
   const q = String(idOrUrl || "").trim().slice(0, 500);
   if (!q) return toast("Enter a URL to inspect");
   const it = resolveItem(q);
@@ -110,6 +110,7 @@ function openInspect(idOrUrl){
     analysis: `No cached deep-dive yet. ${name} looks like a ${it?.kind || "project"} in ${it?.category || "an uncategorized space"}. Check the official page, recent commits, and issue velocity before shortlisting.`,
     competitors: []
   };
+  const at = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
   const m = it ? metricsFor(it.id) : null;
   const stars = m?.stars != null ? `${m.stars.toLocaleString("en-US")} (live)` : report.stars;
   inspections = [{ name, url }, ...inspections.filter((i) => normUrl(i.url) !== normUrl(url))].slice(0, 8);
@@ -134,7 +135,7 @@ function openInspect(idOrUrl){
     ${it ? `<div class="badges spaced"><span class="badge ${velClass(it.score)}">${it.score} ${velLabel(it.score)}</span><span class="badge">${esc(deptName(it.dept))}</span><span class="badge">${esc(it.kind)}</span></div>` : ""}
     <label class="sr-only" for="inspectUrl">Project URL</label>
     <input id="inspectUrl" value="${esc(url)}" maxlength="500" autocomplete="off" spellcheck="false" />
-    <p class="report-meta"><b>${esc(report.category)}</b> <span class="muted">· stars ${esc(stars)}</span></p>
+    <p class="report-meta"><b>${esc(report.category)}</b> <span class="muted">· stars ${esc(stars)} · analyzed ${esc(at)}</span></p>
     ${metricsBlock}
     <p>${esc(report.analysis)}</p>
     <p class="muted">Competitors: ${esc((report.competitors || []).join(", ") || "n/a")}</p>
@@ -149,8 +150,15 @@ function openInspect(idOrUrl){
   const dlg = $("inspectDlg");
   if (!dlg.open) dlg.showModal();
   $("closeInspect").onclick = () => dlg.close();
-  $("doInspect").onclick = () => openInspect($("inspectUrl").value);
-  $("inspectUrl").onkeydown = (e) => { if (e.key === "Enter") openInspect($("inspectUrl").value); };
+  $("doInspect").onclick = () => {
+    const value = $("inspectUrl").value.trim();
+    if (!value) return toast("Enter a URL to inspect");
+    const btn = $("doInspect");
+    btn.disabled = true; btn.textContent = "Analyzing…";
+    setTimeout(() => openInspect(value, { announce: true }), 200);   // openInspect redraws the button
+  };
+  $("inspectUrl").onkeydown = (e) => { if (e.key === "Enter") { e.preventDefault(); $("doInspect").click(); } };
+  if (announce) toast(`Analyzed ${name}`);
   $("dlInspect").onclick = () => {
     const md = [
       `# ${name}`, "",
