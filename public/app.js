@@ -98,22 +98,135 @@ function resolveItem(q){
   return items.find(match) || CATALOG.find(match) || null;
 }
 
-function openInspect(idOrUrl, { announce = false } = {}){
+// --- Live GitHub lookup ---------------------------------------------------
+// The board ships a daily metrics snapshot (metrics.js), but Inspect also
+// accepts URLs that are not in the catalog. Those are read straight from the
+// public GitHub API so a typed-in repo shows real numbers instead of "n/a".
+const GH_API = "https://api.github.com";
+const REPO_RE = /^[A-Za-z0-9-]{1,39}\/[A-Za-z0-9._-]{1,100}$/;
+const live = new Map(); // repo → { state: "loading" | "ok" | "error", data, error, promise }
+let inspectSeq = 0;
+
+function repoFromUrl(u){
+  try {
+    const url = new URL(/^https?:\/\//i.test(u) ? u : `https://${u}`);
+    if (url.hostname.replace(/^www\./, "") !== "github.com") return null;
+    const [owner, repo] = url.pathname.split("/").filter(Boolean);
+    if (!owner || !repo) return null;
+    const full = `${owner}/${repo.replace(/\.git$/, "")}`;
+    return REPO_RE.test(full) ? full : null;
+  } catch { return null; }
+}
+
+// Third-party strings are length-capped and type-checked before they reach the page.
+const gstr = (v, max) => (typeof v === "string" && v ? v.slice(0, max) : null);
+const gint = (v) => (Number.isSafeInteger(v) && v >= 0 ? v : null);
+const gday = (v) => (typeof v === "string" && /^\d{4}-\d{2}-\d{2}T/.test(v) ? v.slice(0, 10) : null);
+
+async function ghGet(path){
+  const res = await fetch(`${GH_API}${path}`, {
+    headers: { Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" },
+    signal: AbortSignal.timeout(12000)
+  });
+  if (res.ok) return res;
+  if (res.status === 404) throw new Error("no public repository at that URL");
+  if ((res.status === 403 || res.status === 429) && res.headers.get("x-ratelimit-remaining") === "0")
+    throw new Error("GitHub rate limit reached, try again shortly");
+  throw new Error(`GitHub returned HTTP ${res.status}`);
+}
+
+async function fetchLive(repo){
+  const meta = await (await ghGet(`/repos/${repo}`)).json();
+  const since = new Date(Date.now() - 30 * 86400000).toISOString();
+  // Release and commit count are best-effort: a repo with neither still reports.
+  const [rel, commits] = await Promise.all([
+    ghGet(`/repos/${repo}/releases/latest`).catch(() => null),
+    ghGet(`/repos/${repo}/commits?per_page=1&since=${since}`).catch(() => null)
+  ]);
+  let commits30d = null;
+  if (commits) {
+    const last = /[?&]page=(\d+)>; rel="last"/.exec(commits.headers.get("link") || "");
+    commits30d = last ? gint(Number(last[1])) : gint((await commits.json()).length);
+  }
+  const release = rel ? await rel.json() : null;
+  const tag = release ? gstr(release.tag_name, 40) : null;
+  return {
+    repo: gstr(meta.full_name, 140) || repo,
+    stars: gint(meta.stargazers_count),
+    forks: gint(meta.forks_count),
+    openIssues: gint(meta.open_issues_count),
+    pushedAt: gday(meta.pushed_at),
+    archived: meta.archived === true,
+    license: gstr(meta.license?.spdx_id, 40),
+    description: gstr(meta.description, 300),
+    language: gstr(meta.language, 40),
+    release: tag ? { tag, date: gday(release.published_at) } : null,
+    commits30d
+  };
+}
+
+function startLive(repo){
+  const entry = { state: "loading", data: null, error: null };
+  entry.promise = fetchLive(repo).then(
+    (data) => { live.set(repo, { state: "ok", data }); },
+    (e) => { live.set(repo, { state: "error", error: e?.message || "lookup failed" }); }
+  );
+  live.set(repo, entry);
+  return entry;
+}
+
+const definedOnly = (o) => Object.fromEntries(Object.entries(o).filter(([, v]) => v != null));
+
+function openInspect(idOrUrl, { announce = false, refresh = false } = {}){
   const q = String(idOrUrl || "").trim().slice(0, 500);
   if (!q) return toast("Enter a URL to inspect");
   const it = resolveItem(q);
   const url = it?.url || (/^https?:\/\//i.test(q) ? q : `https://${q}`);
   const name = it?.name || nameFromUrl(q);
-  const report = (it && Object.hasOwn(INSPECT, it.id) && INSPECT[it.id]) || {
+  const cached = it ? metricsFor(it.id) : null;
+  const repo = repoFromUrl(url) || cached?.repo || null;
+  inspections = [{ name, url }, ...inspections.filter((i) => normUrl(i.url) !== normUrl(url))].slice(0, 8);
+
+  const seq = ++inspectSeq;
+  // Catalog items already carry a daily snapshot, so they are only re-read from
+  // GitHub on an explicit Analyze; unknown URLs are fetched on sight. That keeps
+  // the anonymous API budget (60 requests/hour per IP) for lookups that need it.
+  let entry = repo ? live.get(repo) : null;
+  const wantLive = repo && (refresh || (!cached && (!entry || entry.state === "error")));
+  if (wantLive) entry = startLive(repo);
+  if (entry?.state === "loading") {
+    entry.promise.then(() => {
+      if (seq !== inspectSeq) return;                        // a newer inspect took over
+      const done = live.get(repo);
+      drawInspect({ it, url, name, repo, cached });
+      if (announce) toast(done?.state === "ok" ? `Analyzed ${name}` : `GitHub lookup failed: ${done?.error}`);
+    });
+  } else if (announce) toast(`Analyzed ${name}`);
+  drawInspect({ it, url, name, repo, cached });
+}
+
+function drawInspect({ it, url, name, repo, cached }){
+  const entry = repo ? live.get(repo) : null;
+  const l = entry?.state === "ok" ? entry.data : null;
+  const m = cached || l ? { ...cached, ...(l ? definedOnly(l) : {}) } : null;
+  const report = (it && Object.hasOwn(INSPECT, it.id) && INSPECT[it.id]) || (l ? {
+    stars: fmtNum(l.stars),
+    category: l.language || it?.category || "Unknown",
+    analysis: [
+      l.description,
+      `Read live from GitHub: ${fmtNum(l.stars)} stars, ${fmtNum(l.forks)} forks, ${fmtNum(l.openIssues)} open issues, last push ${fmtDay(l.pushedAt)}.`
+    ].filter(Boolean).join(" "),
+    competitors: []
+  } : {
     stars: "n/a",
     category: it?.category || "Unknown",
-    analysis: `No cached deep-dive yet. ${name} looks like a ${it?.kind || "project"} in ${it?.category || "an uncategorized space"}. Check the official page, recent commits, and issue velocity before shortlisting.`,
+    analysis: entry?.state === "loading"
+      ? `Reading ${repo} from the GitHub API…`
+      : `No cached deep-dive yet. ${name} looks like a ${it?.kind || "project"} in ${it?.category || "an uncategorized space"}. Check the official page, recent commits, and issue velocity before shortlisting.`,
     competitors: []
-  };
+  });
   const at = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
-  const m = it ? metricsFor(it.id) : null;
-  const stars = m?.stars != null ? `${m.stars.toLocaleString("en-US")} (live)` : report.stars;
-  inspections = [{ name, url }, ...inspections.filter((i) => normUrl(i.url) !== normUrl(url))].slice(0, 8);
+  const stars = m?.stars != null ? `${m.stars.toLocaleString("en-US")}${l ? " (live)" : ""}` : report.stars;
   const cell = (label, value) => `<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`;
   const metricsBlock = m ? `
     <dl class="metrics-grid">
@@ -127,7 +240,12 @@ function openInspect(idOrUrl, { announce = false } = {}){
       ${cell("Latest release", m.release ? `${m.release.tag}${m.release.date ? ` · ${fmtDay(m.release.date)}` : ""}` : "none")}
       ${cell("License", m.license && m.license !== "NOASSERTION" ? m.license : "see repo")}
     </dl>
-    <p class="muted k">GitHub: <a href="${esc(safeUrl(repoUrl(m)))}" target="_blank" rel="noopener noreferrer">${esc(m.repo)}</a> · refreshed ${esc(fmtDay(METRICS_UPDATED))}${m.stale ? " · last refresh failed, showing previous data" : ""}${m.archived ? " · archived" : ""}</p>` : "";
+    <p class="muted k">GitHub: <a href="${esc(safeUrl(repoUrl(m)))}" target="_blank" rel="noopener noreferrer">${esc(m.repo)}</a> · ${l ? "read live just now" : `refreshed ${esc(fmtDay(METRICS_UPDATED))}`}${m.stale && !l ? " · last refresh failed, showing previous data" : ""}${m.archived ? " · archived" : ""}</p>` : "";
+  const liveNote = entry?.state === "loading"
+    ? `<p class="muted k">Reading ${esc(repo)} from the GitHub API…</p>`
+    : entry?.state === "error"
+      ? `<p class="muted k">Live GitHub lookup failed — ${esc(entry.error)}. Press Analyze to retry.</p>`
+      : "";
 
   $("inspectBody").innerHTML = `
     <p class="eyebrow">Deep inspect</p>
@@ -137,13 +255,14 @@ function openInspect(idOrUrl, { announce = false } = {}){
     <input id="inspectUrl" value="${esc(url)}" maxlength="500" autocomplete="off" spellcheck="false" />
     <p class="report-meta"><b>${esc(report.category)}</b> <span class="muted">· stars ${esc(stars)} · analyzed ${esc(at)}</span></p>
     ${metricsBlock}
+    ${liveNote}
     <p>${esc(report.analysis)}</p>
     <p class="muted">Competitors: ${esc((report.competitors || []).join(", ") || "n/a")}</p>
     ${it ? `<p><a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer">Open ${esc(it.name)} ↗</a></p>` : ""}
     <p class="muted k recent-label">Recent inspections</p>
     <div class="recent">${inspections.map((i) => `<button type="button" data-recent="${esc(i.url)}">${esc(i.name)}</button>`).join("")}</div>
     <div class="actions">
-      <button class="btn primary" type="button" id="doInspect">Analyze</button>
+      <button class="btn primary" type="button" id="doInspect"${entry?.state === "loading" ? " disabled" : ""}>${entry?.state === "loading" ? "Analyzing…" : "Analyze"}</button>
       <button class="ghost" type="button" id="dlInspect">Download md</button>
       <button class="ghost" type="button" id="closeInspect">Close</button>
     </div>`;
@@ -155,10 +274,10 @@ function openInspect(idOrUrl, { announce = false } = {}){
     if (!value) return toast("Enter a URL to inspect");
     const btn = $("doInspect");
     btn.disabled = true; btn.textContent = "Analyzing…";
-    setTimeout(() => openInspect(value, { announce: true }), 200);   // openInspect redraws the button
+    // refresh re-reads GitHub even when this repo was already fetched this session.
+    openInspect(value, { announce: true, refresh: true });   // openInspect redraws the button
   };
   $("inspectUrl").onkeydown = (e) => { if (e.key === "Enter") { e.preventDefault(); $("doInspect").click(); } };
-  if (announce) toast(`Analyzed ${name}`);
   $("dlInspect").onclick = () => {
     const md = [
       `# ${name}`, "",
@@ -167,7 +286,7 @@ function openInspect(idOrUrl, { announce = false } = {}){
       `- Stars: ${stars}`,
       ...(it ? [`- Velocity: ${it.score} (${velLabel(it.score)})`, `- Department: ${deptName(it.dept)}`] : []),
       ...(m ? [
-        `- GitHub: ${repoUrl(m)} (refreshed ${fmtDay(METRICS_UPDATED)})`,
+        `- GitHub: ${repoUrl(m)} (${l ? "read live" : `refreshed ${fmtDay(METRICS_UPDATED)}`})`,
         `- Star growth: ${m.stars7d != null ? fmtSigned(m.stars7d) : "n/a"} / 7d, ${m.stars30d != null ? fmtSigned(m.stars30d) : "n/a"} / 30d`,
         `- Commits in last 30 days: ${m.commits30d ?? "n/a"}`,
         `- Latest release: ${m.release ? `${m.release.tag} (${fmtDay(m.release.date)})` : "none"}`,
