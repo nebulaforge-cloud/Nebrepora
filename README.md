@@ -35,6 +35,7 @@ scripts/
   prerender.mjs    renders the default board + SEO/AEO/GEO files from data.js
   refresh-metrics.mjs  pulls GitHub metrics into public/metrics.js
   lint-csp.mjs     fails on inline code or off-site assets that the CSP would block
+  check-assets.mjs favicon/icon/manifest/share-image validation (sizes, formats, links)
   render-assets.mjs  renders icons + share image with headless Edge/Chrome
   assets/          HTML sources for the icons and share image
 data/

@@ -79,4 +79,5 @@ Long question headings (FAQ) use Space Mono bold: the pixel face loses legibilit
 - [ ] `border-radius` is 0; spacing values are multiples of 8 (4 only for insets)
 - [ ] Pixel face only on short display text; body copy in Space Mono
 - [ ] `prefers-reduced-motion` removes the blink and press; forced-colors still shows state
-- [ ] `npm run check` passes (syntax, CSP lint, prerender drift)
+- [ ] `npm run check` passes (syntax, CSP lint, asset/favicon check, prerender drift)
+- [ ] Icon or share-image changes were re-rendered with `npm run assets`
