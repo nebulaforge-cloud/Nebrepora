@@ -6,7 +6,7 @@
 - Source code: https://github.com/nebulaforge-cloud/Nebrepora
 - Publisher: NebulaForge (https://nebulaforge.dev)
 - Watchlist last reviewed: 2026-09-11
-- GitHub metrics refreshed: 2026-09-21 (daily)
+- GitHub metrics refreshed: 2026-09-22 (daily)
 
 ## How scoring works
 
@@ -22,31 +22,31 @@ The score weighs how sharp the technical leap is and how much genuine builder di
 
 Compilers, systems, data, AI infra, tooling.
 
-- [uv](https://github.com/astral-sh/uv): velocity 91 (High signal), DevTools, Repo, 90,024 GitHub stars. Rust-speed Python package manager replacing pip+venv friction. Single binary resolver/installer that makes Python env setup feel like a compiled toolchain. Builders: Builders treating uv as default infra, not a toy.
-- [Oxc](https://github.com/oxc-project/oxc): velocity 88 (High signal), Compilers, Repo, 22,831 GitHub stars. One Rust parser/linter/compiler stack for the JS toolchain. Shared AST + native speed collapsing ESLint/Prettier/TS-check work. Builders: Compiler folks calling it the next JS infrastructure layer.
-- [Zed](https://github.com/zed-industries/zed): velocity 86 (High signal), DevTools, Repo, 90,646 GitHub stars. GPU-accelerated editor built for pair programming. CRDT collaboration + Rust UI that stays instant on large trees. Builders: Devtools chatter shifting from novelty to daily editor.
-- [Jujutsu (jj)](https://github.com/jj-vcs/jj): velocity 84 (High signal), Systems, Repo, 31,679 GitHub stars. Git-compatible VCS with first-class conflicts and revsets. Operation log + working-copy commits change how people rebase and undo. Builders: Systems engineers quietly switching daily drivers.
-- [libSQL](https://github.com/tursodatabase/libsql): velocity 82 (High signal), Database, Repo, 17,225 GitHub stars. SQLite fork with native replicas and HTTP. Embedded SQL that can replicate without bolting on a separate server. Builders: Edge/app builders using it as the default local-first store.
-- [Candle](https://github.com/huggingface/candle): velocity 79 (Building), AI/Infra, Repo, 21,084 GitHub stars. Minimal Rust ML framework for running models without Python. Serverless-friendly tensors and Hugging Face weights in a tiny runtime. Builders: Infra teams prototyping on-device and edge inference.
+- [uv](https://github.com/astral-sh/uv): velocity 91 (High signal), DevTools, Repo, 90,053 GitHub stars. Rust-speed Python package manager replacing pip+venv friction. Single binary resolver/installer that makes Python env setup feel like a compiled toolchain. Builders: Builders treating uv as default infra, not a toy.
+- [Oxc](https://github.com/oxc-project/oxc): velocity 88 (High signal), Compilers, Repo, 22,843 GitHub stars. One Rust parser/linter/compiler stack for the JS toolchain. Shared AST + native speed collapsing ESLint/Prettier/TS-check work. Builders: Compiler folks calling it the next JS infrastructure layer.
+- [Zed](https://github.com/zed-industries/zed): velocity 86 (High signal), DevTools, Repo, 90,703 GitHub stars. GPU-accelerated editor built for pair programming. CRDT collaboration + Rust UI that stays instant on large trees. Builders: Devtools chatter shifting from novelty to daily editor.
+- [Jujutsu (jj)](https://github.com/jj-vcs/jj): velocity 84 (High signal), Systems, Repo, 31,695 GitHub stars. Git-compatible VCS with first-class conflicts and revsets. Operation log + working-copy commits change how people rebase and undo. Builders: Systems engineers quietly switching daily drivers.
+- [libSQL](https://github.com/tursodatabase/libsql): velocity 82 (High signal), Database, Repo, 17,226 GitHub stars. SQLite fork with native replicas and HTTP. Embedded SQL that can replicate without bolting on a separate server. Builders: Edge/app builders using it as the default local-first store.
+- [Candle](https://github.com/huggingface/candle): velocity 79 (Building), AI/Infra, Repo, 21,088 GitHub stars. Minimal Rust ML framework for running models without Python. Serverless-friendly tensors and Hugging Face weights in a tiny runtime. Builders: Infra teams prototyping on-device and edge inference.
 
 ### Game UI / UX
 
 HUD, menus, interaction, game feel, accessibility.
 
-- [Godot](https://github.com/godotengine/godot): velocity 90 (High signal), Game UI/UX, Repo, 117,533 GitHub stars. Open engine with first-class Control nodes for game UI. Theme system + Control tree that ships menus without a separate UI stack. Builders: Indie UI teams moving prototypes off Unity uGUI.
-- [Dear ImGui](https://github.com/ocornut/imgui): velocity 87 (High signal), Game UI/UX, Repo, 76,298 GitHub stars. Immediate-mode UI that game tools and debug HUDs still ship on. Tiny C++ UI core used for editors, debug overlays, and live tuners. Builders: Tools engineers treat it as the default in-game panel kit.
-- [Bevy](https://github.com/bevyengine/bevy): velocity 85 (High signal), Game UI/UX, Repo, 48,308 GitHub stars. Rust ECS engine with a growing UI and rendering stack. Data-driven UI + render graph that tools and gameplay share. Builders: Systems + UX engineers prototyping HUD in ECS.
+- [Godot](https://github.com/godotengine/godot): velocity 90 (High signal), Game UI/UX, Repo, 117,591 GitHub stars. Open engine with first-class Control nodes for game UI. Theme system + Control tree that ships menus without a separate UI stack. Builders: Indie UI teams moving prototypes off Unity uGUI.
+- [Dear ImGui](https://github.com/ocornut/imgui): velocity 87 (High signal), Game UI/UX, Repo, 76,309 GitHub stars. Immediate-mode UI that game tools and debug HUDs still ship on. Tiny C++ UI core used for editors, debug overlays, and live tuners. Builders: Tools engineers treat it as the default in-game panel kit.
+- [Bevy](https://github.com/bevyengine/bevy): velocity 85 (High signal), Game UI/UX, Repo, 48,325 GitHub stars. Rust ECS engine with a growing UI and rendering stack. Data-driven UI + render graph that tools and gameplay share. Builders: Systems + UX engineers prototyping HUD in ECS.
 - [Rive](https://rive.app/): velocity 84 (High signal), Game UI/UX, Tool, 1,182 GitHub stars. Runtime motion for HUDs and diegetic menus. State-machine animations authored once and played by a small runtime in-engine and on web. Builders: UI animators replacing sprite-sheet HUD motion with state machines.
-- [React Three Fiber](https://github.com/pmndrs/react-three-fiber): velocity 81 (High signal), Game UI/UX, Repo, 32,406 GitHub stars. Declarative 3D scenes for web game shells and 3D menus. React reconciler over Three.js — HUD and world in one component tree. Builders: Web game UX teams building diegetic menus in-browser.
+- [React Three Fiber](https://github.com/pmndrs/react-three-fiber): velocity 81 (High signal), Game UI/UX, Repo, 32,419 GitHub stars. Declarative 3D scenes for web game shells and 3D menus. React reconciler over Three.js — HUD and world in one component tree. Builders: Web game UX teams building diegetic menus in-browser.
 - [Figma game UI kits](https://www.figma.com/community): velocity 74 (Building), Game UI/UX, Tool. Production HUD frames before they hit the engine. Component variants + auto layout as the spec layer for menus, HUD states, and safe areas. Builders: UX leads using community kits to skip blank-canvas HUD work.
 
 ### Art
 
 Pixel, 3D, VFX, pipelines, look-dev kits.
 
-- [Blender](https://www.blender.org/): velocity 92 (High signal), Art, Tool, 20,454 GitHub stars. Look-dev, DCC, and export hub for 3D game art. Geometry nodes + USD/glTF export covering greybox to final mesh. Builders: Art leads using it as the default DCC, not a free fallback.
-- [Aseprite](https://github.com/aseprite/aseprite): velocity 88 (High signal), Art, Tool, 39,593 GitHub stars. Pixel pipeline that art and animation still standardize on. Layered pixel editor with animation, tiles, and CLI batch export. Builders: Art departments treating it as the 2D source of truth.
-- [Spine](https://esotericsoftware.com/): velocity 80 (High signal), Art, Tool, 5,298 GitHub stars. 2D skeletal animation that UI and character art share. Runtime-backed rigs for HUDs, characters, and VFX-lite motion. Builders: Art + UI sharing one animation runtime.
+- [Blender](https://www.blender.org/): velocity 92 (High signal), Art, Tool, 20,474 GitHub stars. Look-dev, DCC, and export hub for 3D game art. Geometry nodes + USD/glTF export covering greybox to final mesh. Builders: Art leads using it as the default DCC, not a free fallback.
+- [Aseprite](https://github.com/aseprite/aseprite): velocity 88 (High signal), Art, Tool, 39,608 GitHub stars. Pixel pipeline that art and animation still standardize on. Layered pixel editor with animation, tiles, and CLI batch export. Builders: Art departments treating it as the 2D source of truth.
+- [Spine](https://esotericsoftware.com/): velocity 80 (High signal), Art, Tool, 5,301 GitHub stars. 2D skeletal animation that UI and character art share. Runtime-backed rigs for HUDs, characters, and VFX-lite motion. Builders: Art + UI sharing one animation runtime.
 - [Blockbench](https://github.com/JannisX11/blockbench): velocity 78 (Building), Art, Tool, 5,965 GitHub stars. Low-poly / voxel modeler that ships game-ready meshes fast. Box modeling + animation aimed at stylized game assets. Builders: Art teams using it for props and character blockouts.
 - [Mixamo](https://www.mixamo.com/): velocity 73 (Building), Art, Tool. Auto-rigging and a mocap clip library for fast character blockouts. Upload a mesh, get a skeleton plus retargetable animation clips as FBX. Builders: Art teams using it for prototype locomotion, then replacing with custom mocap.
 
@@ -54,7 +54,7 @@ Pixel, 3D, VFX, pipelines, look-dev kits.
 
 Audio, live-ops, tools, QA, platform, build.
 
-- [Sentry](https://github.com/getsentry/sentry): velocity 84 (High signal), LiveOps, Repo, 44,814 GitHub stars. Crash and session signal used by live-ops and QA. Event pipeline that maps player sessions back to builds. Builders: Live-ops treating it as the incident bus.
+- [Sentry](https://github.com/getsentry/sentry): velocity 84 (High signal), LiveOps, Repo, 44,822 GitHub stars. Crash and session signal used by live-ops and QA. Event pipeline that maps player sessions back to builds. Builders: Live-ops treating it as the incident bus.
 - [Wwise](https://www.audiokinetic.com/en/wwise/): velocity 83 (High signal), Audio, Tool. Interactive audio middleware for live mix and events. Sound engine + profiling that audio and gameplay hook into. Builders: Audio engineering still the default on mid-to-large titles.
 - [Helix Core](https://www.perforce.com/products/helix-core): velocity 81 (High signal), Tools/QA, Tool. Version control that still holds the binary assets studios ship. File locking + streams that scale to multi-terabyte depots Git LFS struggles with. Builders: Build and platform teams keeping it for art depots even when code moves to Git.
 - [FASTBuild](https://github.com/fastbuild/fastbuild): velocity 76 (Building), Tools/QA, Repo, 1,395 GitHub stars. Distributed C++ builds for game engine compile farms. Cache + distributed compile that platform/build teams live on. Builders: Build engineering still comparing it to IncrediBuild.
